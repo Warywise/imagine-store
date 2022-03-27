@@ -76,12 +76,12 @@ export default function Login() {
     if (error) {
       setEmailCondition(INITIAL_CONDITION);
       setPasswordCondition(INITIAL_CONDITION);
-      return setUnauthotorized(error);
+      setUnauthotorized(error);
     } else {
       setCookie('auth_handler', token);
       setCurrentUser({ name, email });
       setActive(true);
-      return navigateTo('/', { replace: true });
+      navigateTo('/', { replace: true });
     }
   };
 
@@ -124,7 +124,7 @@ export default function Login() {
             variant='outline-dark'
             size='lg'
             type='button'
-            onClick={() => push('/cadastro')}
+            onClick={() => navigateTo('/cadastro')}
           >
               Quero me Cadastrar
           </Button> */}

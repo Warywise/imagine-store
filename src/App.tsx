@@ -8,7 +8,6 @@ import { MainContext } from './context/mainContext';
 
 function App(): JSX.Element {
   const { currentUser: user } = useContext(MainContext);
-  console.log(navigator);
   return (
     <div className="App">
       <Routes>

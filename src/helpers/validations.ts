@@ -3,18 +3,18 @@ const RegExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export function emailVerifier(email: string) {
   const invalidTerms = [undefined, ''];
   if (invalidTerms.includes(email)) {
-    return 'O campo Email é obrigatório';
+    return '"Email" is required';
   }
 
   return RegExp.test(email)
-    ? false : 'Formato de Email inválido';
+    ? false : '"Email" must be valid: email@example.com';
 }
 
 export function passwordVerifier(password: string) {
   const invalidTerms = [undefined, ''];
-  if (invalidTerms.includes(password)) return 'O campo Password é obrigatório';
+  if (invalidTerms.includes(password)) return '"Password" is required';
 
-  if (password.length < 5) return 'Password precisa ser maior';
+  if (password.length < 6) return '"Password" must be at least 6 characters';
 
   return false;
 }
