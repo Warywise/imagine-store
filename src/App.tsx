@@ -11,7 +11,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>
-        <Route index element={
+        <Route path='/' element={
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>

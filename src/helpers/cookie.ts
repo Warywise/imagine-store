@@ -1,9 +1,21 @@
-import Cookie from 'js-cookie';
+import JsCookie from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
-const cookies = Cookie.withAttributes({
+const cookies = JsCookie.withAttributes({
   expires: 1,
 });
 
 export function setCookie(key: string, value: string) {
   cookies.set(key, value);
+}
+
+export function getCookie(key: string) {
+  const token = cookies.get(key) as string;
+  if (token) {
+    const { email } = jwt_decode(token) as { email: string };
+    return {
+      email, token,
+    };
+  }
+  return null;
 }
