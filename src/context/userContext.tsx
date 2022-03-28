@@ -6,16 +6,16 @@ import { getCookie } from '../helpers/cookie';
 import { axiosGetUserInfos } from '../helpers/axios';
 
 import { PropChild } from '../interfaces/default';
-import { InfosType } from '../interfaces/userInfos';
+import { Adress, Card, InfosType, Purchase } from '../interfaces/userInfos';
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }: PropChild) {
   const { active, setActive, currentUser } = useContext(MainContext);
   const [user, setUser] = useState({});
-  const [adresses, setAdresses] = useState([] as any[]);
-  const [cards, setCards] = useState([] as any[]);
-  const [purchases, setPurchases] = useState([] as any[]);
+  const [adresses, setAdresses] = useState([] as Adress[]);
+  const [cards, setCards] = useState([] as Card[]);
+  const [purchases, setPurchases] = useState([] as Purchase[]);
 
   const getUserInfos = async () => {
     const auth = getCookie('auth_handler');
@@ -30,8 +30,15 @@ export function UserProvider({ children }: PropChild) {
   };
 
   useEffect(() => {
-    getUserInfos();
-  }, []);
+    if (active) {
+      getUserInfos();
+    } else {
+      setUser({});
+      setAdresses([]);
+      setCards([]);
+      setPurchases([]);
+    }
+  }, [active]);
 
   const userValue = {
     active,
