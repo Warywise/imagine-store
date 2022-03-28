@@ -48,3 +48,16 @@ export async function axiosRefreshToken({ email, token: authorization }: GetUser
     return response?.data;
   }
 }
+
+export async function axiosGetter(url: string) {
+  try {
+    return await axios({
+      method: 'GET',
+      url: `${URL}${url}`,
+      timeout: 10000,
+    }).then((response) => response.data);
+  } catch (error) {
+    const { response } = error as AxiosError;
+    return response?.data;
+  }
+}
