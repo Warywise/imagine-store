@@ -4,6 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './pages/login';
 import { MainContext } from './context/mainContext';
 
+import Main from './pages/main';
+import Header from './components/Header';
+
 import './App.scss';
 
 function App(): JSX.Element {
@@ -13,6 +16,8 @@ function App(): JSX.Element {
       <Routes>
         <Route path='/' element={
           <header className="App-header">
+            {Header}
+            {Main}
             <p>
               { `Email: ${user.email}` }
             </p>

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function Main() {
+import { useStoreProvider } from '../../context/storeContext';
+
+function Main() {
   return (
     <h1>Main</h1>
   );
 }
+
+export default useStoreProvider(Main());
