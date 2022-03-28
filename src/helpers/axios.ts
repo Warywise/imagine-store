@@ -34,6 +34,20 @@ export async function axiosGetUser({ email, token: authorization }: GetUserData)
   }
 }
 
+export async function axiosGetUserInfos({ email, token: authorization }: GetUserData) {
+  try {
+    return await axios({
+      method: 'GET',
+      url: `${URL}/users/infos`,
+      headers: { authorization, email },
+      timeout: 10000,
+    }).then((response) => response.data);
+  } catch (error) {
+    const { response } = error as AxiosError;
+    return response?.data;
+  }
+}
+
 export async function axiosRefreshToken({ email, token: authorization }: GetUserData) {
   try {
     return await axios({
