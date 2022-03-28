@@ -27,7 +27,6 @@ export default function Login() {
   const [passwordCondition, setPasswordCondition] = useState(INITIAL_CONDITION);
   const [unauthorized, setUnauthotorized] = useState('');
 
-
   const emailValidation = (emailValue: string) => {
     const emailResult = Validation.emailVerifier(emailValue);
     if (emailResult) {
