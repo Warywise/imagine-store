@@ -2,24 +2,23 @@ import React, { createContext, useEffect, useState } from 'react';
 import { axiosGetter } from '../helpers/axios';
 
 import { PropChild } from '../interfaces/default';
-
-type INITIAL_VALUE = Record<string, unknown>[];
+import { CategoryType, ProductType } from '../interfaces/store';
 
 export const StoreContext = createContext({});
 
 export function StoreProvider({ children }: PropChild) {
-  const [products, setProducts] = useState([] as INITIAL_VALUE);
-  const [categories, setCategories] = useState([] as INITIAL_VALUE);
+  const [categories, setCategories] = useState([] as CategoryType[]);
+  const [products, setProducts] = useState([] as ProductType[]);
 
   const getCategories = async () => {
-    const categoriesResult = await axiosGetter('/categories');
+    const categoriesResult: CategoryType[] = await axiosGetter('/categories');
     if (Array.isArray(categoriesResult)) {
       setCategories(categoriesResult);
     }
   };
 
   const getProducts = async () => {
-    const productsResult = await axiosGetter('/products');
+    const productsResult: ProductType[] = await axiosGetter('/products');
     if (Array.isArray(productsResult)) {
       setProducts(productsResult);
     }
