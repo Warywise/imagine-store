@@ -19,7 +19,10 @@ export function StoreProvider({ children }: PropChild) {
   };
 
   const getProducts = async () => {
-    //
+    const productsResult = await axiosGetter('/products');
+    if (Array.isArray(productsResult)) {
+      setProducts(productsResult);
+    }
   };
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export function StoreProvider({ children }: PropChild) {
   }, []);
 
   useEffect(() => {
-    // getProducts();
+    getProducts();
   }, []);
 
   const storeValue = {
