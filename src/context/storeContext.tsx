@@ -4,7 +4,12 @@ import { axiosGetter } from '../helpers/axios';
 import { PropChild } from '../interfaces/default';
 import { CategoryType, ProductType } from '../interfaces/store';
 
-export const StoreContext = createContext({});
+type StoreType = {
+  products: ProductType[],
+  categories: CategoryType[],
+};
+
+export const StoreContext = createContext({} as StoreType);
 
 export function StoreProvider({ children }: PropChild) {
   const [categories, setCategories] = useState([] as CategoryType[]);

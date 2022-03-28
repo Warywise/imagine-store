@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import FormInput from './components/formInput';
+import FormInput from './components/FormInput';
 
 import * as Validation from '../../helpers/validations';
 import { axiosLogin } from '../../helpers/axios';
