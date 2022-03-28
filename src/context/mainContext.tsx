@@ -1,7 +1,7 @@
 import React, {
   createContext, Dispatch, SetStateAction, useEffect, useState,
 } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { axiosGetUser, axiosRefreshToken } from '../helpers/axios';
 import { destroyCookie, getCookie, setCookie } from '../helpers/cookie';
@@ -11,21 +11,21 @@ import { PropChild } from '../interfaces/default';
 type InitialContext = {
   active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>,
-  currentUser: InitialUser,
-  setCurrentUser: Dispatch<SetStateAction<InitialUser>>
+  currentUser: typeof INIT_USER,
+  setCurrentUser: Dispatch<SetStateAction<typeof INIT_USER>>
 }
 
-type InitialUser = {
-  name: string,
-  email: string,
+const INIT_USER = {
+  name: '',
+  email: '',
 };
 
 export const MainContext = createContext({} as InitialContext);
 
 export function MainProvider({ children }: PropChild) {
   const [active, setActive] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ email: '', name: '' });
-  // const navigateTo = useNavigate();
+  const [currentUser, setCurrentUser] = useState(INIT_USER);
+  const navigateTo = useNavigate();
   const TEN_MINUTES = 1000 * 60 * 10;
 
   const getUserData = async () => {
@@ -43,7 +43,7 @@ export function MainProvider({ children }: PropChild) {
       }
 
       const userData = await axiosRefreshToken(auth);
-      if (userData.active) {
+      if (userData?.active) {
         const { email, name, token } = userData;
         setCookie('auth_handler', token);
         return setCurrentUser({ email, name });
@@ -55,17 +55,15 @@ export function MainProvider({ children }: PropChild) {
   };
 
   const refreshTokenInterval = () => {
-    if (active) {
-      setTimeout(async () => {
-        await refreshToken();
-        refreshTokenInterval();
-      }, TEN_MINUTES);
-    }
+    setTimeout(async () => {
+      await refreshToken();
+      if (active) refreshTokenInterval();
+    }, TEN_MINUTES);
   };
 
   const verifyToken = async () => {
     const userResult = await getUserData();
-    if (userResult.active) {
+    if (userResult?.active) {
       const { email, name } = userResult;
       setCurrentUser({ email, name });
       setActive(true);
@@ -77,8 +75,12 @@ export function MainProvider({ children }: PropChild) {
   }, []);
 
   useEffect(() => {
-    refreshTokenInterval();
-  }, []);
+    if (active) {
+      refreshTokenInterval();
+    } else {
+      setCurrentUser(INIT_USER);
+    }
+  }, [active]);
 
   const contextValue = {
     active,
