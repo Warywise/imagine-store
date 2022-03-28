@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext, useState } from 'react';
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
@@ -18,7 +18,7 @@ const INITIAL_CONDITION = {
 };
 
 export default function Login() {
-  const { setActive, setCurrentUser } = useContext(MainContext);
+  const { active, setActive, setCurrentUser } = useContext(MainContext);
   const navigateTo = useNavigate();
 
   const [user, setUser] = useState('');
@@ -84,6 +84,10 @@ export default function Login() {
       navigateTo('/', { replace: true });
     }
   };
+
+  useEffect(() => {
+    if (active) navigateTo('/', { replace: true });
+  });
 
   return (
     <Container className='d-flex mt-5 justify-content-center'>
