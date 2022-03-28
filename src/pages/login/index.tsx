@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import FormInput from './components/formInput';
+import FormInput from './components/FormInput';
 
 import * as Validation from '../../helpers/validations';
 import { axiosLogin } from '../../helpers/axios';
@@ -18,7 +18,7 @@ const INITIAL_CONDITION = {
 };
 
 export default function Login() {
-  const { setActive, setCurrentUser } = useContext(MainContext);
+  const { active, setActive, setCurrentUser } = useContext(MainContext);
   const navigateTo = useNavigate();
 
   const [user, setUser] = useState('');
@@ -26,7 +26,6 @@ export default function Login() {
   const [emailCondition, setEmailCondition] = useState(INITIAL_CONDITION);
   const [passwordCondition, setPasswordCondition] = useState(INITIAL_CONDITION);
   const [unauthorized, setUnauthotorized] = useState('');
-
 
   const emailValidation = (emailValue: string) => {
     const emailResult = Validation.emailVerifier(emailValue);
@@ -76,14 +75,18 @@ export default function Login() {
     if (error) {
       setEmailCondition(INITIAL_CONDITION);
       setPasswordCondition(INITIAL_CONDITION);
-      return setUnauthotorized(error);
+      setUnauthotorized(error);
     } else {
       setCookie('auth_handler', token);
       setCurrentUser({ name, email });
       setActive(true);
-      return navigateTo('/', { replace: true });
+      navigateTo('/', { replace: true });
     }
   };
+
+  useEffect(() => {
+    if (active) navigateTo('/', { replace: true });
+  });
 
   return (
     <Container className='d-flex mt-5 justify-content-center'>
@@ -124,7 +127,7 @@ export default function Login() {
             variant='outline-dark'
             size='lg'
             type='button'
-            onClick={() => push('/cadastro')}
+            onClick={() => navigateTo('/cadastro')}
           >
               Quero me Cadastrar
           </Button> */}
