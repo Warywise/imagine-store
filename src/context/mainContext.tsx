@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { axiosGetter, axiosGetUser, axiosRefreshToken } from '../helpers/axios';
 import { destroyCookie, getCookie, setCookie } from '../helpers/cookie';
+import { decrypt, encrypt } from '../helpers/crypto';
 
 import { PropChild } from '../interfaces/default';
-import { CategoryType } from '../interfaces/store';
+import { CategoryType, ProductType } from '../interfaces/store';
 
 type InitialContext = {
   active: boolean,
@@ -17,6 +18,10 @@ type InitialContext = {
   categories: CategoryType[],
   categoryFilter: string,
   setCategoryFilter: Dispatch<SetStateAction<string>>,
+  cart: ProductType[],
+  setCart: Dispatch<SetStateAction<ProductType[]>>,
+  favorites: ProductType[],
+  setFavorites: Dispatch<SetStateAction<ProductType[]>>,
 }
 
 const INIT_USER = {
@@ -31,6 +36,8 @@ export function MainProvider({ children }: PropChild) {
   const [currentUser, setCurrentUser] = useState(INIT_USER);
   const [categories, setCategories] = useState([] as CategoryType[]);
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [cart, setCart] = useState([] as ProductType[]);
+  const [favorites, setFavorites] = useState([] as ProductType[]);
 
   const navigateTo = useNavigate();
   const TEN_MINUTES = 1000 * 60 * 10;
@@ -101,6 +108,35 @@ export function MainProvider({ children }: PropChild) {
     getCategories();
   }, []);
 
+  useEffect(() => {
+    if (active) {
+      const cartCookie = getCookie('cart_backup');
+      const favoritesCookie = getCookie('user_favorites');
+
+      if (typeof cartCookie === 'string') {
+        const cookieValue = decrypt(cartCookie);
+        setCart(cookieValue);
+      }
+      if (typeof favoritesCookie === 'string') {
+        const cookieValue = decrypt(favoritesCookie);
+        setFavorites(cookieValue);
+      }
+
+    } else {
+      destroyCookie('cart_backup');
+      destroyCookie('user_favorites');
+    }
+
+  }, [active]);
+
+  useEffect(() => {
+    if (active) setCookie('cart_backup', encrypt(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    if (active) setCookie('user_favorites', encrypt(favorites));
+  }, [favorites]);
+
   const contextValue = {
     active,
     setActive,
@@ -109,6 +145,10 @@ export function MainProvider({ children }: PropChild) {
     categories,
     categoryFilter,
     setCategoryFilter,
+    cart,
+    setCart,
+    favorites,
+    setFavorites,
   };
 
   return (
