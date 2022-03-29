@@ -11,7 +11,7 @@ import Nav from 'react-bootstrap/Nav';
 // import FormControl from 'react-bootstrap/FormControl';
 // import Button from 'react-bootstrap/Button';
 
-import CategoriesDropdown from '../CategoriesDropdown';
+import CategoriesDropdown from './CategoriesDropdown';
 import { useUserProvider } from '../../context/userContext';
 
 function Header() {

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 
-import { MainContext } from '../context/mainContext';
+import { MainContext } from '../../context/mainContext';
 
 export default function CategoriesDropdown() {
   const { categories, setCategoryFilter } = useContext(MainContext);
