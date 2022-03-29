@@ -126,14 +126,14 @@ export default function Login() {
               Login
             </Button>
             <span className='m-1' />
-            {/* <Button
-            variant='outline-dark'
-            size='lg'
-            type='button'
-            onClick={() => navigateTo('/cadastro')}
-          >
-              Quero me Cadastrar
-          </Button> */}
+            <Button
+              variant='outline-dark'
+              size='lg'
+              type='button'
+              onClick={() => navigateTo('/auth/signup')}
+            >
+              Signup
+            </Button>
             <Form.Text className='d-block font-monospace text-danger fw-bolder'>
               {unauthorized}
             </Form.Text>
