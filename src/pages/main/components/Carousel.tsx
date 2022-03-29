@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
-import BSCarousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
+
+import BSCarousel from 'react-bootstrap/Carousel';
+
 import { StoreContext } from '../../../context/storeContext';
+
+import '../styles/carousel.scss';
 
 export default function Carousel() {
   const { allProducts } = useContext(StoreContext);
@@ -33,7 +37,7 @@ export default function Carousel() {
   });
 
   return (
-    <BSCarousel variant='dark' className='carousel'>
+    <BSCarousel variant='dark' pause='hover' className='main-carousel'>
       { allProducts.length > 0 && getCarouselItems() }
     </BSCarousel>
   );
