@@ -7,6 +7,7 @@ import { MainContext } from './mainContext';
 
 type StoreType = {
   products: ProductType[],
+  allProducts: ProductType[],
 };
 
 export const StoreContext = createContext({} as StoreType);
@@ -42,6 +43,7 @@ export function StoreProvider({ children }: PropChild) {
 
   const storeValue = {
     products,
+    allProducts,
   };
 
   return (
