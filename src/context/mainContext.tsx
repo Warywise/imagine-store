@@ -30,13 +30,13 @@ export function MainProvider({ children }: PropChild) {
 
   const getUserData = async () => {
     const auth = getCookie('auth_handler');
-    if (auth)  return await axiosGetUser(auth);
+    if (auth && typeof auth !== 'string') return await axiosGetUser(auth);
     return null;
   };
 
   const refreshToken = async () => {
     const auth = getCookie('auth_handler');
-    if (auth) {
+    if (auth && typeof auth !== 'string') {
       if (currentUser.email !== auth.email) {
         destroyCookie('auth_handler');
         return setActive(false);
@@ -79,6 +79,7 @@ export function MainProvider({ children }: PropChild) {
       refreshTokenInterval();
     } else {
       setCurrentUser(INIT_USER);
+      navigateTo('/', { replace: true });
     }
   }, [active]);
 

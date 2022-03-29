@@ -12,10 +12,13 @@ export function setCookie(key: string, value: string) {
 export function getCookie(key: string) {
   const token = cookies.get(key) as string;
   if (token) {
-    const { email } = jwt_decode(token) as { email: string };
-    return {
-      email, token,
-    };
+    if (key === 'auth_handler') {
+      const { email } = jwt_decode(token) as { email: string };
+      return {
+        email, token,
+      };
+    }
+    return token;
   }
   return null;
 }
