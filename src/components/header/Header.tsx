@@ -15,8 +15,8 @@ import CategoriesDropdown from '../CategoriesDropdown';
 import { useUserProvider } from '../../context/userContext';
 
 function Header() {
-  const activeS = { color: 'red', textDecoration: 'underline' };
-  const defaultS = { color: 'black' };
+  const activeS = { fontWeight: '500', textDecoration: 'underline' };
+  const defaultS = { textDecoration: 'none' };
 
   return (
     <Navbar bg="dark" expand={false} sticky='top' collapseOnSelect>
@@ -33,23 +33,23 @@ function Header() {
             <Offcanvas.Title id="offcanvasNavbarLabel"><h1>IS</h1></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="justify-content-end flex-grow-1 pe-3">
+            <Nav className="cat-nav justify-content-end flex-grow-1 pe-3">
               <NavLink to='/' style={({ isActive }) => isActive ? activeS : defaultS}>
-                <Nav.Link href='/'>
+                <Nav.Link href='/' className='cat-nav-item'>
                   Home
                 </Nav.Link>
               </NavLink>
-              <NavLink to='/' style={({ isActive }) => isActive ? activeS : defaultS}>
-                <Nav.Link href='/'>
+              <NavLink to='/account' style={({ isActive }) => isActive ? activeS : defaultS}>
+                <Nav.Link href='/' className='cat-nav-item'>
                   Account
                 </Nav.Link>
               </NavLink>
-              <NavLink to='/' style={({ isActive }) => isActive ? activeS : defaultS}>
-                <Nav.Link href='/'>
+              <NavLink to='/favorites' style={({ isActive }) => isActive ? activeS : defaultS}>
+                <Nav.Link href='/' className='cat-nav-item'>
                   Favotites
                 </Nav.Link>
               </NavLink>
-              {CategoriesDropdown}
+              <CategoriesDropdown />
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
