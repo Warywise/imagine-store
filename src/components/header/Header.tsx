@@ -15,9 +15,7 @@ import { HiOutlineMenu } from 'react-icons/hi';
 // import FormControl from 'react-bootstrap/FormControl';
 // import Button from 'react-bootstrap/Button';
 
-import { useUserProvider } from '../../context/userContext';
-
-function Header() {
+export default function Header() {
   const activeS = { fontWeight: '500', textDecoration: 'underline' };
   const defaultS = { textDecoration: 'none' };
 
@@ -68,5 +66,3 @@ function Header() {
     </Navbar>
   );
 }
-
-export default useUserProvider(<Header />);

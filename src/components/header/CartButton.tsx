@@ -7,7 +7,12 @@ import { BsCart4 } from 'react-icons/bs';
 import { IoIosLogIn } from 'react-icons/io';
 
 export default function CartButton() {
-  const { active } = useContext(MainContext);
+  const { active, cart } = useContext(MainContext);
+
+  const cartCounter = () => (
+    <span className='cart-counter'>{cart.length}</span>
+  );
+
   return (
     <div className='cart-button'>
       {active
@@ -15,9 +20,10 @@ export default function CartButton() {
           <button type='button'>
             <BsCart4 className='icon'/>
           </button>
+          {cart.length > 0 && cartCounter()}
           <span>Cart</span></Link>
         : (
-          <Link to='auth/signin'>
+          <Link to='/auth/signin'>
             <IoIosLogIn className='icon'/>
             <p>Login</p>
           </Link>

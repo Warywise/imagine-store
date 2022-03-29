@@ -33,6 +33,7 @@ div.offcanvas-nav {
   flex-direction: column;
   justify-content: center;
   padding: 0 0.15rem;
+  position: relative;
 
   button {
     background-color: transparent;
@@ -60,7 +61,26 @@ div.offcanvas-nav {
     margin-bottom: -1rem;
   }
 
+  .cart-counter {
+    align-items: center;
+    background-color: #f8fafc;
+    border-radius: 50%;
+    bottom: 1.25rem;
+    color: #171717;
+    display: flex;
+    font-weight: 500;
+    height: calc(1.15rem + 1.15vmin);
+    justify-content: center;
+    left: -1rem;
+    position: absolute;
+    width: calc(1.15rem + 1.15vmin);
+  }
+
   &:hover span, &:hover p {
     text-decoration: underline;
+  }
+
+  &:hover .cart-counter {
+    text-decoration: none;
   }
 }

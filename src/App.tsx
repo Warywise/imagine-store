@@ -15,7 +15,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path='/' element={
           <>
-            {Header}
+            <Header />
             {Main}
           </>
         } />

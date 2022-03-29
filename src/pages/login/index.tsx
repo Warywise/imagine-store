@@ -91,7 +91,7 @@ export default function Login() {
 
   return (
     <>
-      {Header}
+      <Header />
       <Container className='d-flex mt-5 justify-content-center'>
         <Form action=''>
           <Form.Group className='mb-3'>
