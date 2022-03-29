@@ -8,6 +8,7 @@ import Main from './pages/main';
 
 import './styles/App.scss';
 import Account from './pages/account';
+import Favorites from './pages/favorites';
 
 function App(): JSX.Element {
   return (
@@ -18,7 +19,8 @@ function App(): JSX.Element {
           <Route path='signin' element={<Login />} />
           {/* <Route path='signup' element={<Register />} /> */}
         </Route>
-        <Route path='account' element={<Account/>}/>
+        <Route path='account' element={<Account />} />
+        <Route path='favorites' element={<Favorites />} />
       </Routes>
     </div>
   );
