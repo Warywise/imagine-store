@@ -9,7 +9,7 @@ export default function Account() {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    if (!active) navigateTo('/auth/signin', { replace: true });
+    if (!active) navigateTo('/auth/login', { replace: true });
   }, [active]);
 
   return (

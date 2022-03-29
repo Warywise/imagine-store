@@ -1,16 +1,16 @@
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Header from '../../components/header/Header';
+import Header from '../../../components/header/Header';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import FormInput from './components/FormInput';
+import FormInput from '../components/FormInput';
 
-import * as Validation from '../../helpers/validations';
-import { axiosLogin } from '../../helpers/axios';
-import { setCookie } from '../../helpers/cookie';
-import { MainContext } from '../../context/mainContext';
+import * as Validation from '../../../helpers/validations';
+import { axiosLogin } from '../../../helpers/axios';
+import { setCookie } from '../../../helpers/cookie';
+import { MainContext } from '../../../context/mainContext';
 
 const INITIAL_CONDITION = {
   valid: false,

@@ -23,7 +23,7 @@ export default function CartButton() {
           {cart.length > 0 && cartCounter()}
           <span>Cart</span></Link>
         : (
-          <Link to='/auth/signin'>
+          <Link to='/auth/login'>
             <IoIosLogIn className='icon'/>
             <p>Login</p>
           </Link>
