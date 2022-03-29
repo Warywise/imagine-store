@@ -3,16 +3,25 @@ import React, {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { axiosGetUser, axiosRefreshToken } from '../helpers/axios';
+import { axiosGetter, axiosGetUser, axiosRefreshToken } from '../helpers/axios';
 import { destroyCookie, getCookie, setCookie } from '../helpers/cookie';
+import { decrypt, encrypt } from '../helpers/crypto';
 
 import { PropChild } from '../interfaces/default';
+import { CategoryType, ProductType } from '../interfaces/store';
 
 type InitialContext = {
   active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>,
   currentUser: typeof INIT_USER,
-  setCurrentUser: Dispatch<SetStateAction<typeof INIT_USER>>
+  setCurrentUser: Dispatch<SetStateAction<typeof INIT_USER>>,
+  categories: CategoryType[],
+  categoryFilter: string,
+  setCategoryFilter: Dispatch<SetStateAction<string>>,
+  cart: ProductType[],
+  setCart: Dispatch<SetStateAction<ProductType[]>>,
+  favorites: ProductType[],
+  setFavorites: Dispatch<SetStateAction<ProductType[]>>,
 }
 
 const INIT_USER = {
@@ -25,8 +34,20 @@ export const MainContext = createContext({} as InitialContext);
 export function MainProvider({ children }: PropChild) {
   const [active, setActive] = useState(false);
   const [currentUser, setCurrentUser] = useState(INIT_USER);
+  const [categories, setCategories] = useState([] as CategoryType[]);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [cart, setCart] = useState([] as ProductType[]);
+  const [favorites, setFavorites] = useState([] as ProductType[]);
+
   const navigateTo = useNavigate();
   const TEN_MINUTES = 1000 * 60 * 10;
+
+  const getCategories = async () => {
+    const categoriesResult: CategoryType[] = await axiosGetter('/categories');
+    if (Array.isArray(categoriesResult)) {
+      setCategories(categoriesResult);
+    }
+  };
 
   const getUserData = async () => {
     const auth = getCookie('auth_handler');
@@ -83,11 +104,51 @@ export function MainProvider({ children }: PropChild) {
     }
   }, [active]);
 
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    if (active) {
+      const cartCookie = getCookie('cart_backup');
+      const favoritesCookie = getCookie('user_favorites');
+
+      if (typeof cartCookie === 'string') {
+        const cookieValue = decrypt(cartCookie);
+        setCart(cookieValue);
+      }
+      if (typeof favoritesCookie === 'string') {
+        const cookieValue = decrypt(favoritesCookie);
+        setFavorites(cookieValue);
+      }
+
+    } else {
+      destroyCookie('cart_backup');
+      destroyCookie('user_favorites');
+    }
+
+  }, [active]);
+
+  useEffect(() => {
+    if (active) setCookie('cart_backup', encrypt(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    if (active) setCookie('user_favorites', encrypt(favorites));
+  }, [favorites]);
+
   const contextValue = {
     active,
     setActive,
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    categories,
+    categoryFilter,
+    setCategoryFilter,
+    cart,
+    setCart,
+    favorites,
+    setFavorites,
   };
 
   return (

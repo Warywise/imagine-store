@@ -1,0 +1,86 @@
+.App {
+  text-align: center;
+}
+
+// Header
+.nav-bar {
+
+  .header-pic {
+    width: calc(5rem + 5vw);
+  }
+
+  .nav-toggle-icon {
+    color: #f8fafc;
+    margin: 0.25rem 0;
+    width: calc(2rem + 2vw);
+  }
+}
+
+// Offcanvas
+div.offcanvas-nav {
+
+  .cat-nav-item, .nav-link {
+    color: #171717;
+    font-size: large;
+  }
+}
+
+// Header CartButton
+.cart-button {
+  align-items: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 0.15rem;
+  position: relative;
+
+  button {
+    background-color: transparent;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #f8fafc;
+  }
+  
+  .icon {
+    color: #f8fafc;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  span {
+    color: #f8fafc;
+    display: block;
+    font-size: calc(0.5rem + 2vmin);
+    margin-bottom: -0.5rem;
+  }
+
+  p {
+    color: #f8fafc;
+    display: block;
+    font-size: calc(0.5rem + 2vmin);
+    margin-bottom: -1rem;
+  }
+
+  .cart-counter {
+    align-items: center;
+    background-color: #f8fafc;
+    border-radius: 50%;
+    bottom: 1.25rem;
+    color: #171717;
+    display: flex;
+    font-weight: 500;
+    height: calc(1.15rem + 1.15vmin);
+    justify-content: center;
+    left: -1rem;
+    position: absolute;
+    width: calc(1.15rem + 1.15vmin);
+  }
+
+  &:hover span, &:hover p {
+    text-decoration: underline;
+  }
+
+  &:hover .cart-counter {
+    text-decoration: none;
+  }
+}

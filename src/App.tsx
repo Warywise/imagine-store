@@ -1,35 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+// import { useStoreProvider } from './context/storeContext';
+
 import Login from './pages/login';
-import { MainContext } from './context/mainContext';
-
 import Main from './pages/main';
-import Header from './components/Header';
 
-import './App.scss';
+import './styles/App.scss';
+import Account from './pages/account';
+import Favorites from './pages/favorites';
 
 function App(): JSX.Element {
-  const { currentUser: user } = useContext(MainContext);
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={
-          <header className="App-header">
-            {Header}
-            {Main}
-            <p>
-              { `Email: ${user.email}` }
-            </p>
-            <p>
-              { `Name: ${user.name}` }
-            </p>
-          </header>
-        } />
+        <Route path='/' element={Main} />
         <Route path='auth'>
           <Route path='signin' element={<Login />} />
           {/* <Route path='signup' element={<Register />} /> */}
         </Route>
+        <Route path='account' element={<Account />} />
+        <Route path='favorites' element={<Favorites />} />
       </Routes>
     </div>
   );
