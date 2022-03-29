@@ -7,15 +7,15 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 // import Form from 'react-bootstrap/Form';
 // import FormControl from 'react-bootstrap/FormControl';
 // import Button from 'react-bootstrap/Button';
 
-import { useUserProvider } from '../context/userContext';
+import CategoriesDropdown from '../CategoriesDropdown';
+import { useUserProvider } from '../../context/userContext';
 
 function Header() {
-  const activeS = { color: 'red' };
+  const activeS = { color: 'red', textDecoration: 'underline' };
   const defaultS = { color: 'black' };
 
   return (
@@ -49,9 +49,7 @@ function Header() {
                   Favotites
                 </Nav.Link>
               </NavLink>
-              <NavDropdown title="Categories" id="offcanvasNavbarDropdown">
-                <NavDropdown.Item href='/'>Category1</NavDropdown.Item>
-              </NavDropdown>
+              {CategoriesDropdown}
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

@@ -1,6 +1,7 @@
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Header from '../../components/header/Header';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -89,41 +90,43 @@ export default function Login() {
   });
 
   return (
-    <Container className='d-flex mt-5 justify-content-center'>
-      <Form action=''>
-        <Form.Group className='mb-3'>
-          <h1 className='mb-3'>Login</h1>
-          <Form.Label>E-mail</Form.Label>
-          <FormInput
-            stateCondition={emailCondition}
-            value={user}
-            setValue={setUser}
-            validation={emailValidation}
-            name='user'
-          />
-        </Form.Group>
-        <Form.Group className='mb-3'>
-          <Form.Label>Password</Form.Label>
-          <FormInput
-            stateCondition={passwordCondition}
-            value={password}
-            setValue={setPassword}
-            validation={passwordValidation}
-            name='password'
-          />
-        </Form.Group>
-        <Form.Group className='mb-3'>
-          <Button
-            variant='outline-dark'
-            size='lg'
-            onClick={handleClick}
-            type='submit'
-            disabled={handleButtonDisable()}
-          >
+    <>
+      {Header}
+      <Container className='d-flex mt-5 justify-content-center'>
+        <Form action=''>
+          <Form.Group className='mb-3'>
+            <h1 className='mb-3'>Login</h1>
+            <Form.Label>E-mail</Form.Label>
+            <FormInput
+              stateCondition={emailCondition}
+              value={user}
+              setValue={setUser}
+              validation={emailValidation}
+              name='user'
+            />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Form.Label>Password</Form.Label>
+            <FormInput
+              stateCondition={passwordCondition}
+              value={password}
+              setValue={setPassword}
+              validation={passwordValidation}
+              name='password'
+            />
+          </Form.Group>
+          <Form.Group className='mb-3'>
+            <Button
+              variant='outline-dark'
+              size='lg'
+              onClick={handleClick}
+              type='submit'
+              disabled={handleButtonDisable()}
+            >
               Login
-          </Button>
-          <span className='m-1' />
-          {/* <Button
+            </Button>
+            <span className='m-1' />
+            {/* <Button
             variant='outline-dark'
             size='lg'
             type='button'
@@ -131,11 +134,12 @@ export default function Login() {
           >
               Quero me Cadastrar
           </Button> */}
-          <Form.Text className='d-block font-monospace text-danger fw-bolder'>
-            {unauthorized}
-          </Form.Text>
-        </Form.Group>
-      </Form>
-    </Container>
+            <Form.Text className='d-block font-monospace text-danger fw-bolder'>
+              {unauthorized}
+            </Form.Text>
+          </Form.Group>
+        </Form>
+      </Container>
+    </>
   );
 }
