@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-import { BsCart4 } from 'react-icons/bs';
-import { HiOutlineMenu } from 'react-icons/hi';
+import CategoriesDropdown from './CategoriesDropdown';
+import CartButton from './CartButton';
+import ISdark from '../../ISdark.png';
+import ISlight from '../../ISlight.png';
 
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { HiOutlineMenu } from 'react-icons/hi';
 // import Form from 'react-bootstrap/Form';
 // import FormControl from 'react-bootstrap/FormControl';
 // import Button from 'react-bootstrap/Button';
 
-import CategoriesDropdown from './CategoriesDropdown';
 import { useUserProvider } from '../../context/userContext';
 
 function Header() {
@@ -25,15 +27,19 @@ function Header() {
         <Navbar.Toggle aria-controls="offcanvasNavbar" className='nav-toggle border-light'>
           <HiOutlineMenu className='nav-toggle-icon'/>
         </Navbar.Toggle>
-        <Navbar.Brand href="#"><h2>Imagine Store</h2></Navbar.Brand>
-        <BsCart4 color='white' size={35} />
+        <Navbar.Brand>
+          <Link to='/'>
+            <img src={ISdark} className='header-pic'/>
+          </Link>
+        </Navbar.Brand>
+        <CartButton />
         <Navbar.Offcanvas
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
           placement="start"
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title id="offcanvasNavbarLabel"><h1>IS</h1></Offcanvas.Title>
+            <Offcanvas.Title id="offcanvasNavbarLabel"><img src={ISlight} /></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="cat-nav justify-content-end flex-grow-1 pe-3">
