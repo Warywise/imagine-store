@@ -6,7 +6,7 @@ import { MainProvider } from './context/mainContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import './index.scss';
+import './styles/index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(

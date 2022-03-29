@@ -29,7 +29,7 @@ function Header() {
         </Navbar.Toggle>
         <Navbar.Brand>
           <Link to='/'>
-            <img src={ISdark} className='header-pic'/>
+            <img src={ISdark} className='header-pic' alt='imagine store' />
           </Link>
         </Navbar.Brand>
         <CartButton />
@@ -39,10 +39,12 @@ function Header() {
           placement="start"
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title id="offcanvasNavbarLabel"><img src={ISlight} /></Offcanvas.Title>
+            <Offcanvas.Title id="offcanvasNavbarLabel">
+              <img src={ISlight} alt='imagine store' />
+            </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="cat-nav justify-content-end flex-grow-1 pe-3">
+            <Nav className="offcanvas-nav justify-content-end flex-grow-1 pe-3">
               <NavLink to='/' style={({ isActive }) => isActive ? activeS : defaultS}>
                 <Nav.Link href='/' className='cat-nav-item'>
                   Home

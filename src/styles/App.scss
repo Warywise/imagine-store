@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+// Header
 .nav-bar {
 
   .header-pic {
@@ -15,7 +16,8 @@
   }
 }
 
-div.cat-nav {
+// Offcanvas
+div.offcanvas-nav {
 
   .cat-nav-item, .nav-link {
     color: #171717;
@@ -23,15 +25,14 @@ div.cat-nav {
   }
 }
 
+// Header CartButton
 .cart-button {
   align-items: center;
   align-content: center;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   justify-content: center;
   padding: 0 0.15rem;
-  position: relative;
 
   button {
     background-color: transparent;
@@ -53,26 +54,13 @@ div.cat-nav {
   }
 
   p {
-    bottom: -1.25rem;
     color: #f8fafc;
+    display: block;
     font-size: calc(0.5rem + 2vmin);
-    line-height: 0;
-    left: calc(-0.05rem + -0.5vmin);
-    position: absolute;
+    margin-bottom: -1rem;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  &:hover span, &:hover p {
+    text-decoration: underline;
   }
 }

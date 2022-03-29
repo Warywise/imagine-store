@@ -7,7 +7,7 @@ import Login from './pages/login';
 import Main from './pages/main';
 import Header from './components/header/Header';
 
-import './App.scss';
+import './styles/App.scss';
 
 function App(): JSX.Element {
   return (
