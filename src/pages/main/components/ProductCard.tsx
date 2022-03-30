@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import BSCarousel from 'react-bootstrap/Carousel';
 import { RiHeartAddLine, RiHeartFill } from 'react-icons/ri';
 
@@ -9,9 +11,12 @@ import '../styles/productCard.scss';
 
 export default function ProductCard(product: ProductType) {
   const {
-    id, name, category, price, description, image, material, provider, discountValue, hasDiscount
+    id, name, category, price, image, provider, discountValue, hasDiscount
   } = product;
   const { favorites, setFavorites } = useContext(MainContext);
+
+  const navigateTo = useNavigate();
+
   const verifyFavorites = () =>
     favorites.some((fav) => fav.name === name && fav.provider === provider);
   
@@ -46,7 +51,7 @@ export default function ProductCard(product: ProductType) {
             <img src={img} alt={name} />
           </BSCarousel.Item>)}
       </BSCarousel>
-      <div>
+      <div onClick={() => navigateTo(`/${id}`)}>
         <h5>{name}</h5>
         <p className='text-muted'>{category.name}</p>
         <hr />
