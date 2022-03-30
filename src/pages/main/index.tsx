@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import Header from '../../components/header/Header';
-import ProductCard from './components/ProductCard';
+import ProductCard from '../../components/ProductCard';
 
 import { StoreContext } from '../../context/storeContext';
 

@@ -4,8 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import BSCarousel from 'react-bootstrap/Carousel';
 import { RiHeartAddLine, RiHeartFill } from 'react-icons/ri';
 
-import { MainContext } from '../../../context/mainContext';
-import { ProductType } from '../../../interfaces/store';
+import { MainContext } from '../context/mainContext';
+import { ProductType } from '../interfaces/store';
 
 import '../styles/productCard.scss';
 

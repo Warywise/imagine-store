@@ -19,7 +19,9 @@ function App(): JSX.Element {
           <Route path='signup' element={<Signup />} />
         </Route>
         <Route path='account' element={<Account />} />
-        <Route path='favorites' element={<Favorites />} />
+        <Route path='favorites' element={<Favorites />}>
+          {/* <Route path='/favorites/:id' element={<ProductDetail />}/> */}
+        </Route>
         <Route path='/' element={Main}>
           <Route path='/:id' element={<ProductDetail />}/>
         </Route>
