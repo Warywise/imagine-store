@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { MainContext } from './mainContext';
 
@@ -34,6 +35,8 @@ export function UserProvider({ children }: PropChild) {
   const [cards, setCards] = useState([] as Card[]);
   const [purchases, setPurchases] = useState([] as Purchase[]);
 
+  const navigateTo = useNavigate();
+
   const getUserInfos = async () => {
     const auth = getCookie('auth_handler');
     if (auth && typeof auth !== 'string') {
@@ -55,6 +58,10 @@ export function UserProvider({ children }: PropChild) {
       setCards([]);
       setPurchases([]);
     }
+  }, [active]);
+
+  useEffect(() => {
+    if (!active) navigateTo('/auth/login', { replace: true });
   }, [active]);
 
   const userValue = {
