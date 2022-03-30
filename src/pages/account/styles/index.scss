@@ -28,7 +28,7 @@
       .product-card {
         box-shadow: 0 0 0 0.5px #171717;
         height: fit-content;
-        max-width: 25%;
+        max-width: 33%;
         margin: 0.5rem;
   
         p {
@@ -36,6 +36,14 @@
         }
       }
   }
+  }
+}
 
+@media screen and (min-width: 800px) {
+  .account-section
+  .pruchase-box
+  .purchase-products-box
+  .product-card {
+    max-width: 20%;
   }
 }

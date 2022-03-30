@@ -17,8 +17,6 @@ type PurchaseType = {
 export default function UserPurchases(props: PurchaseType) {
   const { date, payMethod, products } = props;
   const { categories } = useContext(MainContext);
-  console.log({ categories });
-  console.log(props);
 
   const getCategory = (products: PurchaseProdcut[]) => {
     return products.map(({ product }) => {

@@ -22,6 +22,15 @@ export default function Account() {
     setActive(false);
   };
 
+  const dontHavePurchase = () => (
+    <h5 className='text-info mt-5 bg-dark bg-gradient p-3'>
+      {'You haven\'t made any purchases yet.'}<hr/>
+      <Button variant='btn btn-outline-warning' onClick={() => navigateTo('/')}>
+        Go Shop!
+      </Button>
+    </h5>
+  );
+
   useEffect(() => {
     if (!active) navigateTo('/auth/login', { replace: true });
   }, [active]);
@@ -55,10 +64,15 @@ export default function Account() {
             </div>
           </Tab>
           <Tab eventKey="purchases" title="Purchases">
-            {purchases.length > 0 && purchases.map((purchase, ind) =>
-              <UserPurchases key={ind} {...purchase} />)}
+            {purchases.length > 0
+              ? purchases.map((purchase, ind) =>
+                <UserPurchases key={ind} {...purchase} />)
+              : dontHavePurchase()}
           </Tab>
           <Tab eventKey="update" title="Update Infos" disabled>
+            <h4 className='font-monospace text-danger mt-5'>
+              Sorry for the inconvenience, we are under maintenance.
+            </h4>
           </Tab>
         </Tabs>
       </section>
