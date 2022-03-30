@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import BSCarousel from 'react-bootstrap/Carousel';
 import { RiHeartAddLine, RiHeartFill } from 'react-icons/ri';
 
-import { MainContext } from '../../../context/mainContext';
-import { ProductType } from '../../../interfaces/store';
+import { MainContext } from '../context/mainContext';
+import { ProductType } from '../interfaces/store';
 
 import '../styles/productCard.scss';
 
@@ -16,6 +16,11 @@ export default function ProductCard(product: ProductType) {
   const { favorites, setFavorites } = useContext(MainContext);
 
   const navigateTo = useNavigate();
+  const Location = useLocation();
+  const redirect = () => {
+    if (Location.pathname.includes('/favorites')) return navigateTo(`/favorites/${id}`);
+    return navigateTo(`/${id}`);
+  };
 
   const verifyFavorites = () =>
     favorites.some((fav) => fav.name === name && fav.provider === provider);
@@ -51,7 +56,7 @@ export default function ProductCard(product: ProductType) {
             <img src={img} alt={name} />
           </BSCarousel.Item>)}
       </BSCarousel>
-      <div onClick={() => navigateTo(`/${id}`)}>
+      <div onClick={redirect}>
         <h5>{name}</h5>
         <p className='text-muted'>{category.name}</p>
         <hr />

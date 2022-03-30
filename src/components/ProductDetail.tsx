@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import BSCarousel from 'react-bootstrap/Carousel';
@@ -11,19 +11,27 @@ import { CloseButton } from 'react-bootstrap';
 import { BsCart4 } from 'react-icons/bs';
 import { IoIosLogIn } from 'react-icons/io';
 
-import { StoreContext } from '../../../context/storeContext';
-import { ProductType } from '../../../interfaces/store';
-import { MainContext } from '../../../context/mainContext';
+import { StoreContext } from '../context/storeContext';
+import { ProductType } from '../interfaces/store';
+import { MainContext } from '../context/mainContext';
+
+import '../styles/productDetail.scss';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { allProducts } = useContext(StoreContext);
-  const { active, cart, setCart } = useContext(MainContext);
+  const { active, cart, setCart, favorites } = useContext(MainContext);
 
   const navigateTo = useNavigate();
+  const Location = useLocation();
+  const redirect = () => {
+    if (Location.pathname.includes('/favorites')) return navigateTo('/favorites');
+    return navigateTo('/');
+  };
 
-  const product = allProducts
+  const product = (allProducts ?? favorites)
     .find((prod) => prod.id === +(id as string)) as ProductType;
+  console.log(product);
 
   const discountPrice = +(product.price) - (+(product.price) * +(product.discountValue));
   const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
@@ -49,7 +57,7 @@ export default function ProductDetail() {
             </BSCarousel.Item>
           ))}
         </BSCarousel>
-        <CloseButton onClick={() => navigateTo('/')} className='product-close'/>
+        <CloseButton onClick={redirect} className='product-close'/>
         <Modal.Header className='product-modal-head'>
           <h4>{product.name}</h4>
           <h5 className='text-muted'>{product.category.name}</h5>
@@ -70,7 +78,7 @@ export default function ProductDetail() {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => navigateTo('/')}>Cancel</Button>
+          <Button variant="secondary" onClick={redirect}>Cancel</Button>
           {active
             ? < Button variant="success" className='product-detail-button' onClick={handleCart}>
               {verifyCart() ? 'Remove' : 'Add to cart'}<BsCart4 />
