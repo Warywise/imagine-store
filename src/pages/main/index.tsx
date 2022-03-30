@@ -11,6 +11,7 @@ import './styles/index.scss';
 import { useStoreProvider } from '../../context/storeContext';
 import Carousel from './components/Carousel';
 import SearchBar from './components/SearchBar';
+import { Outlet } from 'react-router-dom';
 
 function Main() {
   const { products } = useContext(StoreContext);
@@ -20,6 +21,7 @@ function Main() {
       <Header />
       <Carousel />
       <SearchBar />
+      <Outlet />
       <div className='main-products'>
         {products.length > 0 && products.map((prod) => {
           return (<ProductCard key={prod.id} {...prod} />);

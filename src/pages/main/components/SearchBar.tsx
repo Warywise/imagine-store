@@ -36,7 +36,10 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
-    if (products.length > 0 && notFound) setNotFound(false);
+    if (products.length > 0 && notFound) {
+      setQuery('');
+      setNotFound(false);
+    }
   }, [products]);
 
   return (

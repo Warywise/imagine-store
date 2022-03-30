@@ -27,7 +27,7 @@ export default function Carousel() {
             <h5>{name}</h5>
             <p className='original-price'>{priceFormat.format(+(price))}</p>
             <p className='new-price'>{priceFormat.format(+(discountPrice))}</p>
-            <Link to='/' className='see-more-link'>
+            <Link to={`/${id}`} className='see-more-link'>
               {'>'}<span>See More!</span>{'<'}
             </Link>
           </div>
