@@ -1,0 +1,18 @@
+.account-section {
+
+  .account-tab-item {
+    padding: 1rem;
+    text-align: start;
+
+    .account-tab-buttons {
+      align-items: center;
+      display: flex;
+      gap: 5rem;
+      justify-content: center;
+
+      button {
+        font-weight: 500;
+      }
+    }
+  }
+}
