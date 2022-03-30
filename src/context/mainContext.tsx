@@ -131,7 +131,7 @@ export function MainProvider({ children }: PropChild) {
   }, [cart]);
 
   useEffect(() => {
-    if (active) setCookie('user_favorites', encrypt(favorites));
+    setCookie('user_favorites', encrypt(favorites));
   }, [favorites]);
 
   const contextValue = {
