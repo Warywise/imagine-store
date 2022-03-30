@@ -6,7 +6,7 @@ import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
 import Account from './pages/account';
 import Favorites from './pages/favorites';
-import ProductDetail from './pages/main/components/ProductDetail';
+import ProductDetail from './components/ProductDetail';
 
 import './styles/App.scss';
 

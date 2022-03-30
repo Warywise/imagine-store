@@ -11,9 +11,11 @@ import { CloseButton } from 'react-bootstrap';
 import { BsCart4 } from 'react-icons/bs';
 import { IoIosLogIn } from 'react-icons/io';
 
-import { StoreContext } from '../../../context/storeContext';
-import { ProductType } from '../../../interfaces/store';
-import { MainContext } from '../../../context/mainContext';
+import { StoreContext } from '../context/storeContext';
+import { ProductType } from '../interfaces/store';
+import { MainContext } from '../context/mainContext';
+
+import '../styles/productDetail.scss';
 
 export default function ProductDetail() {
   const { id } = useParams();
