@@ -1,7 +1,20 @@
 .product-card {
-  border-radius: 15px;
+  border-radius: 5px;
   box-shadow: 0.75px 1px 3px #e5e5e5, 0.25px 0.75px 5px #171717de;
   contain: content;
+  position: relative;
+
+  .favorite-icon {
+    background-color: #e5e5e52a;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #e5e5e57a;
+    color: #b91c1c;
+    font-size: 1.75rem;
+    right: 1rem;
+    position: absolute;
+    top: 0.75rem;
+    z-index: 2;
+  }
 
   .card-carousel {
     width: 100%;
