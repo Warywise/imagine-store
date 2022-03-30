@@ -6,6 +6,7 @@ import Header from '../../components/header/Header';
 import { MainContext } from '../../context/mainContext';
 import { UserContext } from '../../context/userContext';
 import { destroyCookie } from '../../helpers/cookie';
+import UserPurchases from './components/UserPurchases';
 
 import './styles/index.scss';
 
@@ -54,10 +55,10 @@ export default function Account() {
             </div>
           </Tab>
           <Tab eventKey="purchases" title="Purchases">
-      
+            {purchases.length > 0 && purchases.map((purchase, ind) =>
+              <UserPurchases key={ind} {...purchase} />)}
           </Tab>
           <Tab eventKey="update" title="Update Infos" disabled>
-            
           </Tab>
         </Tabs>
       </section>

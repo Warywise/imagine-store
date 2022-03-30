@@ -20,7 +20,7 @@ export interface Card extends UserId {
 export interface Purchase {
   date: Date,
   payMethod: CategoryType,
-  products: ProductType[],
+  products: { product: ProductType }[],
 }
 
 export interface InfosType {

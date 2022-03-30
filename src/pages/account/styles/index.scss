@@ -15,4 +15,27 @@
       }
     }
   }
+
+  .pruchase-box {
+    margin: 1rem;
+
+    .purchase-products-box {
+      display: flex;
+      gap: 0.5rem;
+      max-height: 50vh;
+      overflow-x: scroll;
+  
+      .product-card {
+        box-shadow: 0 0 0 0.5px #171717;
+        height: fit-content;
+        max-width: 25%;
+        margin: 0.5rem;
+  
+        p {
+          line-height: 0;
+        }
+      }
+  }
+
+  }
 }
