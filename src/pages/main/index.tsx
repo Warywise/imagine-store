@@ -10,6 +10,7 @@ import './styles/index.scss';
 // import { MainContext } from '../../context/mainContext';
 import { useStoreProvider } from '../../context/storeContext';
 import Carousel from './components/Carousel';
+import SearchBar from './components/SearchBar';
 
 function Main() {
   const { products } = useContext(StoreContext);
@@ -17,11 +18,10 @@ function Main() {
   return (
     <>
       <Header />
-      <h1>Main</h1>
       <Carousel />
+      <SearchBar />
       <div className='main-products'>
-        {products.length > 0 && products.map((prod, ind) => {
-          // if (ind < 1) console.log(prod);
+        {products.length > 0 && products.map((prod) => {
           return (<ProductCard key={prod.id} {...prod} />);
         })} 
       </div>

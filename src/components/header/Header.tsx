@@ -20,7 +20,13 @@ export default function Header() {
   const defaultS = { textDecoration: 'none' };
 
   return (
-    <Navbar bg="dark" expand={false} sticky='top' collapseOnSelect className='nav-bar'>
+    <Navbar
+      bg="dark"
+      expand={false}
+      sticky='top'
+      collapseOnSelect
+      className='nav-bar bg-dark bg-gradient'
+    >
       <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" className='nav-toggle border-light'>
           <HiOutlineMenu className='nav-toggle-icon'/>
@@ -35,6 +41,7 @@ export default function Header() {
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
           placement="start"
+          className='bg-light bg-gradient bg-opacity-75'
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">

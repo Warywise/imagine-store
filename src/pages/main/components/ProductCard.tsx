@@ -24,7 +24,6 @@ export default function ProductCard(product: ProductType) {
     return setFavorites([...favorites, product]);
   };
 
-
   const discountPrice = +(price) - (+(price) * +(discountValue));
   const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
 
