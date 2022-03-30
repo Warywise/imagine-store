@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header/Header';
 import { MainContext } from '../../context/mainContext';
 import { UserContext } from '../../context/userContext';
+import { destroyCookie } from '../../helpers/cookie';
 
 import './styles/index.scss';
 
@@ -14,6 +15,11 @@ export default function Account() {
   const [key, setKey] = useState('infos');
   
   const navigateTo = useNavigate();
+
+  const logout = () => {
+    destroyCookie('auth_handler');
+    setActive(false);
+  };
 
   useEffect(() => {
     if (!active) navigateTo('/auth/login', { replace: true });
@@ -39,8 +45,12 @@ export default function Account() {
             <p>{user.cpf ?? 'Not registered'}</p>
             <hr />
             <div className='account-tab-buttons'>
-              <Button type='button' onClick={() => setKey('update')}>Edit Infos</Button>
-              <Button variant='btn btn-warning'>Logout</Button>
+              <Button type='button' onClick={() => setKey('update')}>
+                Edit Infos
+              </Button>
+              <Button variant='btn btn-warning' onClick={logout}>
+                Logout
+              </Button>
             </div>
           </Tab>
           <Tab eventKey="purchases" title="Purchases">
