@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 
 import Header from '../../../components/header/Header';
+import { MainContext } from '../../../context/mainContext';
+import { UserContext } from '../../../context/userContext';
 
 export default function Shop() {
   const [key, setKey] = useState('check');
+  const { cart, setCart } = useContext(MainContext);
+  const { user } = useContext(UserContext);
+
+  const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
+
+  const totalPrice = () => cart.reduce((acc, cur) => {
+    const price = cur.hasDiscount
+      ? +(cur.price) - (+(cur.price) * +(cur.discountValue))
+      : +(cur.price);
+    return acc + price;
+  }, 0);
 
   return (
     <div>
       <Header />
-      <h2>Shopping:</h2>
-      <section className='account-section'>
+      <h2>Shopping</h2>
+      <section className='shop-section'>
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(key) => setKey(key as string)}
           className="mb-3"
         >
-          <Tab eventKey="check" title="Check Products" className='account-tab-item'>
-            {/*  */}
+          <Tab eventKey="check" title="Check Products" className='shop-tab-item'>
+            <strong className='text-danger'>Please, check the purchase prodcuts:</strong>
+            <div>
+              {}
+            </div>
+            <strong>Total Price:</strong>
+            <p>{priceFormat.format(totalPrice())}</p>
           </Tab>
           <Tab eventKey="payment" title="Payment Method">
             {/*  */}

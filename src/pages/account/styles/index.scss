@@ -39,6 +39,16 @@
   }
 }
 
+.shop-section {
+  .shop-tab-item {
+    padding: 1rem;
+  }
+
+  button {
+    font-weight: 500;
+  }
+}
+
 @media screen and (min-width: 800px) {
   .account-section
   .pruchase-box
