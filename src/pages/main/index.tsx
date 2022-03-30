@@ -1,23 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import Header from '../../components/header/Header';
+import ProductCard from './components/ProductCard';
 
-import { MainContext } from '../../context/mainContext';
+import { StoreContext } from '../../context/storeContext';
+
+import './styles/index.scss';
+
+// import { MainContext } from '../../context/mainContext';
 import { useStoreProvider } from '../../context/storeContext';
+import Carousel from './components/Carousel';
+import SearchBar from './components/SearchBar';
+import { Outlet } from 'react-router-dom';
 
 function Main() {
-  const { currentUser: user } = useContext(MainContext);
+  const { products } = useContext(StoreContext);
 
   return (
     <>
       <Header />
-      <h1>Main</h1>
-      <p>
-        { `Email: ${user.email}` }
-      </p>
-      <p>
-        { `Name: ${user.name}` }
-      </p>
+      <Carousel />
+      <SearchBar />
+      <Outlet />
+      <div className='main-products'>
+        {products.length > 0 && products.map((prod) => {
+          return (<ProductCard key={prod.id} {...prod} />);
+        })} 
+      </div>
     </>
   );
 }

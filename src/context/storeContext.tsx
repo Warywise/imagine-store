@@ -7,12 +7,15 @@ import { MainContext } from './mainContext';
 
 type StoreType = {
   products: ProductType[],
+  allProducts: ProductType[],
+  setProducts: Dispatch<SetStateAction<ProductType[]>>,
+  categories: CategoryType[],
 };
 
 export const StoreContext = createContext({} as StoreType);
 
 export function StoreProvider({ children }: PropChild) {
-  const { categoryFilter } = useContext(MainContext);
+  const { categories, categoryFilter } = useContext(MainContext);
 
   const [allProducts, setAllProducts] = useState([] as ProductType[]);
   const [products, setProducts] = useState([] as ProductType[]);
@@ -42,6 +45,9 @@ export function StoreProvider({ children }: PropChild) {
 
   const storeValue = {
     products,
+    allProducts,
+    setProducts,
+    categories,
   };
 
   return (

@@ -111,23 +111,20 @@ export function MainProvider({ children }: PropChild) {
   useEffect(() => {
     if (active) {
       const cartCookie = getCookie('cart_backup');
-      const favoritesCookie = getCookie('user_favorites');
-
       if (typeof cartCookie === 'string') {
         const cookieValue = decrypt(cartCookie);
         setCart(cookieValue);
       }
-      if (typeof favoritesCookie === 'string') {
-        const cookieValue = decrypt(favoritesCookie);
-        setFavorites(cookieValue);
-      }
-
-    } else {
-      destroyCookie('cart_backup');
-      destroyCookie('user_favorites');
     }
-
   }, [active]);
+
+  useEffect(() => {
+    const favoritesCookie = getCookie('user_favorites');
+    if (typeof favoritesCookie === 'string') {
+      const cookieValue = decrypt(favoritesCookie);
+      setFavorites(cookieValue);
+    }
+  }, []);
 
   useEffect(() => {
     if (active) setCookie('cart_backup', encrypt(cart));
