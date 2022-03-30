@@ -20,7 +20,7 @@ function App(): JSX.Element {
         </Route>
         <Route path='account' element={<Account />} />
         <Route path='favorites' element={<Favorites />}>
-          {/* <Route path='/favorites/:id' element={<ProductDetail />}/> */}
+          <Route path='/favorites/:id' element={<ProductDetail />}/>
         </Route>
         <Route path='/' element={Main}>
           <Route path='/:id' element={<ProductDetail />}/>

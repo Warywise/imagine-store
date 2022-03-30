@@ -18,7 +18,7 @@ export default function ProductCard(product: ProductType) {
   const navigateTo = useNavigate();
   const Location = useLocation();
   const redirect = () => {
-    if (Location.pathname === '/favorites') return navigateTo(`/favorites/${id}`);
+    if (Location.pathname.includes('/favorites')) return navigateTo(`/favorites/${id}`);
     return navigateTo(`/${id}`);
   };
 
