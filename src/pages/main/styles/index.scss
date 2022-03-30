@@ -1,5 +1,6 @@
 .main-search-bar {
   display: flex;
+  flex-flow: wrap;
   gap: 0.35rem;
   justify-content: center;
   margin: 1rem auto;
@@ -20,6 +21,12 @@
     box-shadow: 0.25px 0.5px 1px #e5e5e5, 0.25px 0.5px 2px #171717de;
     font-weight: 500;
     text-shadow: 0.05px 0.25px 1px #171717de;
+  }
+
+  .search-not-found {
+    display: block;
+    font-weight: 500;
+    width: 75%;
   }
 }
 
