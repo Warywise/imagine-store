@@ -28,6 +28,17 @@ export default function ProductDetail() {
   const discountPrice = +(product.price) - (+(product.price) * +(product.discountValue));
   const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
 
+  const verifyCart = () => cart.some((prod) => prod.id === +(id as string));
+
+  const handleCart = () => {
+    if (verifyCart()) {
+      const newCart = cart
+        .filter((prod) => (prod.name !== product.name || prod.provider !== product.provider));
+      return setCart(newCart);
+    }
+    return setCart([...cart, product]);
+  };
+
   return (
     <div className='product-details'>
       <Modal.Dialog className='product-modal'>
@@ -61,10 +72,10 @@ export default function ProductDetail() {
         <Modal.Footer>
           <Button variant="secondary" onClick={() => navigateTo('/')}>Cancel</Button>
           {active
-            ? < Button variant="success" className='product-detail-button'>
-              Add to cart<BsCart4 />
+            ? < Button variant="success" className='product-detail-button' onClick={handleCart}>
+              {verifyCart() ? 'Remove' : 'Add to cart'}<BsCart4 />
             </Button>
-            : <Button className='product-detail-button'>
+            : <Button className='product-detail-button' onClick={() => navigateTo('/auth/login')}>
               Login<IoIosLogIn />
             </Button>}
         </Modal.Footer>
