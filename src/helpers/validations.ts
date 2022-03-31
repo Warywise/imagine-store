@@ -18,3 +18,12 @@ export function passwordVerifier(password: string) {
 
   return false;
 }
+
+export function nameVerifier(name: string) {
+  const invalidTerms = [undefined, ''];
+  if (invalidTerms.includes(name)) return '"Name/Last Name" is required';
+
+  if (name.length < 3) return '"Name/Last Name" must be at least 6 characters';
+
+  return false;
+}

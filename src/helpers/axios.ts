@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { LoginReturn } from '../interfaces/auth';
+import { CreateUser, LoginReturn } from '../interfaces/auth';
 
 const URL = 'http://localhost:3001';
 
@@ -68,6 +68,20 @@ export async function axiosGetter(url: string) {
     return await axios({
       method: 'GET',
       url: `${URL}${url}`,
+      timeout: 10000,
+    }).then((response) => response.data);
+  } catch (error) {
+    const { response } = error as AxiosError;
+    return response?.data;
+  }
+}
+
+export async function axiosCreate(data: CreateUser) {
+  try {
+    return await axios({
+      method: 'POST',
+      url: `${URL}/users`,
+      data,
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
