@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '../../../components/header/Header';
 import { MainContext } from '../../../context/mainContext';
-import { UserContext } from '../../../context/userContext';
+// import { UserContext } from '../../../context/userContext';
 import PurchaseProducts from '../components/PurchaseProducts';
 
 export default function Shop() {
   const [key, setKey] = useState('check');
   const { cart } = useContext(MainContext);
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
 
   const navigateTo = useNavigate();
 
@@ -55,13 +55,11 @@ export default function Shop() {
             <strong>Total Price:</strong>
             <h5>{priceFormat.format(totalPrice())}</h5>
           </Tab>
-          <Tab eventKey="payment" title="Payment Method">
+          <Tab eventKey="payment" title="Payment Method" disabled>
             {/*  */}
           </Tab>
           <Tab eventKey="confirmation" title="Purchase Confirmation" disabled>
-            <h4 className='font-monospace text-danger mt-5'>
-              Sorry for the inconvenience, we are under maintenance.
-            </h4>
+            {/*  */}
           </Tab>
         </Tabs>
       </section>
