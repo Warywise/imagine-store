@@ -4,3 +4,11 @@ export interface LoginReturn {
   token: string;
   error?: string;
 }
+
+export interface CreateUser {
+  email: string,
+  name: string,
+  lastName: string,
+  hash: string,
+  cpf?: string,
+}
