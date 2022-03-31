@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Tab, Tabs } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import UserPurchases from './components/UserPurchases';
 import './styles/index.scss';
 
 export default function Account() {
-  const { active, setActive } = useContext(MainContext);
+  const { setActive } = useContext(MainContext);
   const { purchases, user } = useContext(UserContext);
   const [key, setKey] = useState('infos');
   
@@ -30,10 +30,6 @@ export default function Account() {
       </Button>
     </h5>
   );
-
-  useEffect(() => {
-    if (!active) navigateTo('/auth/login', { replace: true });
-  }, [active]);
 
   return (
     <div>

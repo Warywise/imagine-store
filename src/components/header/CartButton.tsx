@@ -16,7 +16,7 @@ export default function CartButton() {
   return (
     <div className='cart-button'>
       {active
-        ? <Link to='/'>
+        ? <Link to='/account/shop'>
           <button type='button'>
             <BsCart4 className='icon'/>
           </button>

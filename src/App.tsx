@@ -6,9 +6,10 @@ import Login from './pages/auth/login';
 import Signup from './pages/auth/signup';
 import Favorites from './pages/favorites';
 import ProductDetail from './components/ProductDetail';
+import AccountRoute from './routers/account';
+import Shop from './pages/account/shop';
 
 import './styles/App.scss';
-import AccountRoute from './routers/account';
 
 function App(): JSX.Element {
   return (
@@ -19,7 +20,7 @@ function App(): JSX.Element {
           <Route path='signup' element={<Signup />} />
         </Route>
         <Route path='account' element={<AccountRoute />}>
-          {/* <Route path='shop' element={<Shop />} /> */}
+          <Route path='shop' element={<Shop />} />
         </Route>
         <Route path='favorites' element={<Favorites />}>
           <Route path='/favorites/:id' element={<ProductDetail />}/>
