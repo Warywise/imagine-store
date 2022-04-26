@@ -9,7 +9,8 @@ import FormInput from '../components/FormInput';
 
 import * as Validation from '../../../helpers/validations';
 import { MainContext } from '../../../context/mainContext';
-import { axiosCreate } from '../../../helpers/axios';
+import { axiosCreate, axiosGetter } from '../../../helpers/axios';
+import { UserConditionReturn } from '../../../interfaces/userInfos';
 
 const INITIAL_CONDITION = {
   valid: false,
@@ -33,13 +34,22 @@ export default function Signup() {
 
   const [unauthorized, setUnauthotorized] = useState('');
 
-  const emailValidation = (emailValue: string) => {
-    const emailResult = Validation.emailVerifier(emailValue);
-    if (emailResult) {
+  const emailValidation = async (emailValue: string) => {
+    const emailError = Validation.emailVerifier(emailValue);
+    if (emailError) {
       return setEmailCondition({
         valid: false,
         invalid: true,
-        msg: emailResult,
+        msg: emailError,
+      });
+    }
+
+    const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
+    if (emailUnavailable.active) {
+      return setEmailCondition({
+        valid: false,
+        invalid: true,
+        msg: 'Email unavailable',
       });
     }
 

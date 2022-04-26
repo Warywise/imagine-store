@@ -29,3 +29,9 @@ export interface InfosType {
   userCards: Card[],
   userPurchases: Purchase[],
 }
+
+export interface UserConditionReturn {
+  email: string,
+  active: boolean,
+  error?: string,
+}
