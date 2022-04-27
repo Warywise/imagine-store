@@ -17,7 +17,7 @@ export default function Carousel() {
     { image, id, name, price, discountValue }
   ) => {
     const discountPrice = +(price) - (+(price) * +(discountValue));
-    const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
+    const priceFormat = Intl.NumberFormat('BRL', { style: 'currency', currency: 'BRL' });
 
     return (
       <BSCarousel.Item key={id} className='carousel-item'>

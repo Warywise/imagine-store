@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Form } from 'react-bootstrap';
 
 import FormInput from './FormInput';
@@ -50,7 +50,7 @@ export default function AuthEmailSignup({ email, setEmail }: EmailProps) {
     // emailAuthReque = true
     const emailAuth = await axiosEmailAuth(email);
     if ('code' in emailAuth) {
-      const authCodeHash = await bcrypt.hash(emailAuth.code, 10);
+      const authCodeHash = bcrypt.hashSync(emailAuth.code, 10);
       setCookie('email_auth_pair', authCodeHash);
       // emailAuthRequire = verify
     }

@@ -36,7 +36,7 @@ export default function ProductCard(product: ProductType) {
   };
 
   const discountPrice = +(price) - (+(price) * +(discountValue));
-  const priceFormat = Intl.NumberFormat('BR', { style: 'currency', currency: 'BRL' });
+  const priceFormat = Intl.NumberFormat('BRL', { style: 'currency', currency: 'BRL' });
 
   return (
     <div className='product-card'>
