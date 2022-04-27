@@ -23,6 +23,7 @@ export default function Signup() {
   const navigateTo = useNavigate();
 
   const [email, setEmail] = useState('');
+  const [emailAuth, setEmailAuth] = useState(true);
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -113,55 +114,58 @@ export default function Signup() {
       <Container className='d-flex mt-5 justify-content-center'>
         <Form action=''>
           <h1 className='mb-3'>Signup</h1>
-          <AuthEmailSignup { ...{ email, setEmail } } />
-          <Form.Group className='mb-3'>
-            <Form.Label>Name</Form.Label>
-            <FormInput
-              stateCondition={nameCondition}
-              value={name}
-              setValue={setName}
-              validation={nameValidation}
-              name='name'
-            />
-          </Form.Group>
+          {emailAuth
+            ? <AuthEmailSignup {...{ email, setEmail, setEmailAuth }} />
+            : <>
+              <Form.Group className='mb-3'>
+                <Form.Label>Name</Form.Label>
+                <FormInput
+                  stateCondition={nameCondition}
+                  value={name}
+                  setValue={setName}
+                  validation={nameValidation}
+                  name='name'
+                />
+              </Form.Group>
 
-          <Form.Group className='mb-3'>
-            <Form.Label>Last Name</Form.Label>
-            <FormInput
-              stateCondition={lastNameCondition}
-              value={lastName}
-              setValue={setLastName}
-              validation={lastNameValidation}
-              name='lastName'
-            />
-          </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>Last Name</Form.Label>
+                <FormInput
+                  stateCondition={lastNameCondition}
+                  value={lastName}
+                  setValue={setLastName}
+                  validation={lastNameValidation}
+                  name='lastName'
+                />
+              </Form.Group>
 
-          <Form.Group className='mb-3'>
-            <Form.Label>Password</Form.Label>
-            <FormInput
-              stateCondition={passwordCondition}
-              value={password}
-              setValue={setPassword}
-              validation={passwordValidation}
-              name='password'
-            />
-          </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>Password</Form.Label>
+                <FormInput
+                  stateCondition={passwordCondition}
+                  value={password}
+                  setValue={setPassword}
+                  validation={passwordValidation}
+                  name='password'
+                />
+              </Form.Group>
 
-          <Form.Group className='mb-3'>
-            <span className='m-1' />
-            <Button
-              variant='outline-success'
-              size='lg'
-              type='button'
-              onClick={handleClick}
-              disabled={handleButtonDisable()}
-            >
+              <Form.Group className='mb-3'>
+                <span className='m-1' />
+                <Button
+                  variant='outline-success'
+                  size='lg'
+                  type='button'
+                  onClick={handleClick}
+                  disabled={handleButtonDisable()}
+                >
               Confirm
-            </Button>
-            <Form.Text className='d-block font-monospace text-danger fw-bolder'>
-              {unauthorized}
-            </Form.Text>
-          </Form.Group>
+                </Button>
+                <Form.Text className='d-block font-monospace text-danger fw-bolder'>
+                  {unauthorized}
+                </Form.Text>
+              </Form.Group>
+            </>}
         </Form>
       </Container>
     </>
