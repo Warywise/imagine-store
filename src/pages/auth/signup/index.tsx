@@ -9,8 +9,8 @@ import FormInput from '../components/FormInput';
 
 import * as Validation from '../../../helpers/validations';
 import { MainContext } from '../../../context/mainContext';
-import { axiosCreate, axiosGetter } from '../../../helpers/axios';
-import { UserConditionReturn } from '../../../interfaces/userInfos';
+import { axiosCreate } from '../../../helpers/axios';
+import AuthEmailSignup from '../components/AuthEmailSignup';
 
 const INITIAL_CONDITION = {
   valid: false,
@@ -27,34 +27,11 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const [emailCondition, setEmailCondition] = useState(INITIAL_CONDITION);
   const [passwordCondition, setPasswordCondition] = useState(INITIAL_CONDITION);
   const [nameCondition, setNameCondition] = useState(INITIAL_CONDITION);
   const [lastNameCondition, setLastNameCondition] = useState(INITIAL_CONDITION);
 
   const [unauthorized, setUnauthotorized] = useState('');
-
-  const emailValidation = async (emailValue: string) => {
-    const emailError = Validation.emailVerifier(emailValue);
-    if (emailError) {
-      return setEmailCondition({
-        valid: false,
-        invalid: true,
-        msg: emailError,
-      });
-    }
-
-    const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
-    if (emailUnavailable.active) {
-      return setEmailCondition({
-        valid: false,
-        invalid: true,
-        msg: 'Email unavailable',
-      });
-    }
-
-    setEmailCondition({ valid: true, invalid: false, msg: '' });
-  };
 
   const nameValidation = (nameValue: string) => {
     const nameResult = Validation.nameVerifier(nameValue);
@@ -119,7 +96,6 @@ export default function Signup() {
     const { error } = await axiosCreate(body);
 
     if (error) {
-      setEmailCondition(INITIAL_CONDITION);
       setPasswordCondition(INITIAL_CONDITION);
       setUnauthotorized(error);
     } else {
@@ -137,17 +113,7 @@ export default function Signup() {
       <Container className='d-flex mt-5 justify-content-center'>
         <Form action=''>
           <h1 className='mb-3'>Signup</h1>
-          <Form.Group className='mb-3'>
-            <Form.Label>E-mail</Form.Label>
-            <FormInput
-              stateCondition={emailCondition}
-              value={email}
-              setValue={setEmail}
-              validation={emailValidation}
-              name='email'
-            />
-          </Form.Group>
-
+          <AuthEmailSignup { ...{ email, setEmail } } />
           <Form.Group className='mb-3'>
             <Form.Label>Name</Form.Label>
             <FormInput
