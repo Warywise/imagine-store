@@ -39,6 +39,10 @@
             "error",
             "always"
         ],
-        "react/react-in-jsx-scope": "warn"
+        "react/react-in-jsx-scope": "warn",
+        "sonarjs/cognitive-complexity": [
+            "error",
+            25
+        ]
     }
 }

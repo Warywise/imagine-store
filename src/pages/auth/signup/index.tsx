@@ -118,7 +118,7 @@ export default function Signup() {
             ? <AuthEmailSignup {...{ email, setEmail, setEmailAuth }} />
             : <>
               <Form.Group className='mb-3'>
-                <Form.Label>Name</Form.Label>
+                <Form.Label>First Name</Form.Label>
                 <FormInput
                   stateCondition={nameCondition}
                   value={name}

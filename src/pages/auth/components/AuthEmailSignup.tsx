@@ -4,7 +4,7 @@ import { Alert, Button, Form } from 'react-bootstrap';
 
 import FormInput from './FormInput';
 import { axiosEmailAuth } from '../../../helpers/emailSender';
-import { setCookie } from '../../../helpers/cookie';
+import { getCookie, setCookie } from '../../../helpers/cookie';
 import { axiosGetter } from '../../../helpers/axios';
 import { emailVerifier } from '../../../helpers/validations';
 
@@ -33,6 +33,7 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
   const [authCondition, setAuthCondition] = useState(AUTH_CONDITION);
   const [authCode, setAuthCode] = useState('');
   const [authCodeCondition, setAuthCodeCondition] = useState(INITIAL_CONDITION);
+  const [emailTimeout, setEmailTimeout] = useState(false);
 
   const emailValidation = async (emailValue: string) => {
     const emailError = emailVerifier(emailValue);
@@ -43,17 +44,18 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
         msg: emailError,
       });
     }
-
-    const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
-    if (emailUnavailable.active) {
-      return setEmailCondition({
-        valid: false,
-        invalid: true,
-        msg: 'Email unavailable',
-      });
+    try {
+      const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
+      if (emailUnavailable.active) {
+        return setEmailCondition({
+          valid: false,
+          invalid: true,
+          msg: 'Email unavailable',
+        });
+      }
+    } catch (error) {
+      return setEmailCondition({ valid: true, invalid: false, msg: '' });
     }
-
-    setEmailCondition({ valid: true, invalid: false, msg: '' });
   };
 
   const authCodeValidation = (code: string) => {
@@ -69,16 +71,31 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
   };
 
   const sendAuthCode = async () => {
-    setAuthCondition({ requiring: true, success: false, msg: '' });
+    setAuthCondition({ ...AUTH_CONDITION, requiring: true });
     const emailAuth = await axiosEmailAuth(email);
-    if ('code' in emailAuth) {
+    if (emailAuth && 'code' in emailAuth) {
       const authCodeHash = bcrypt.hashSync(emailAuth.code, 10);
       setCookie('email_auth_pair', authCodeHash);
-      return setAuthCondition({ requiring: false, success: true, msg: '' });
+      setTimeout(() => setEmailTimeout(true), 20000);
+      return setAuthCondition({ ...AUTH_CONDITION, success: true });
     }
     return setAuthCondition({
-      requiring: false, success: false, msg: 'Error! Please, try again later.'
+      ...AUTH_CONDITION, msg: 'Error! Please, try again later.'
     });
+  };
+
+  const comparePairToPair = () => {
+    const hashCode = getCookie('email_auth_pair');
+    if (hashCode) {
+      const isCodeValid = bcrypt.compareSync(authCode, hashCode as string);
+      return isCodeValid
+        ? setEmailAuth(false)
+        : setAuthCondition({
+          requiring: false, success: true, msg: 'INVALID CODE! Please, check and try again.'
+        });
+    }
+
+    return setAuthCondition({ ...AUTH_CONDITION, msg: 'Please, try again.' });
   };
 
   return (
@@ -118,17 +135,30 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
           name='auth-code'
         />
         <Alert className='mt-3 mb-3 text-black' variant='danger'>
-          Enter the <strong>six-digit</strong> verification code.
+          Enter the <strong>six-digit</strong> verification code.<br />
+          {emailTimeout && <>
+            Did not find? Check the <strong>span box</strong> or{' '}
+            <a
+              style={{ cursor: 'pointer', textDecoration: 'underline' }}
+              className='font-monospace'
+              onClick={() => { setAuthCondition({ ...AUTH_CONDITION }); setEmailTimeout(false); }}
+            >
+            RESEND THE CODE!
+            </a>
+          </>}
         </Alert>
         <Button
           variant='outline-primary'
           size='lg'
           type='button'
-          // onClick={sendAuthCode}
-          // disabled={authCondition.requiring}
+          onClick={comparePairToPair}
+          disabled={authCode.length < 6}
         >
-          {authCondition.requiring ? 'Please wait...' : 'Confirm'}
+          Authenticate
         </Button>
+        <Form.Text className='d-block font-monospace text-danger fw-bolder'>
+          {authCondition.msg}
+        </Form.Text>
       </Form.Group>
   );
 }
