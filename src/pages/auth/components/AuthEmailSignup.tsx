@@ -35,6 +35,11 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
   const [authCodeCondition, setAuthCodeCondition] = useState(INITIAL_CONDITION);
   const [emailTimeout, setEmailTimeout] = useState(false);
 
+  const isEmailUnavailable = async () => {
+    const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
+    return emailUnavailable.active ?? false;
+  };
+
   const emailValidation = async (emailValue: string) => {
     const emailError = emailVerifier(emailValue);
     if (emailError) {
@@ -44,18 +49,17 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
         msg: emailError,
       });
     }
-    try {
-      const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
-      if (emailUnavailable.active) {
-        return setEmailCondition({
-          valid: false,
-          invalid: true,
-          msg: 'Email unavailable',
-        });
-      }
-    } catch (error) {
-      return setEmailCondition({ valid: true, invalid: false, msg: '' });
+
+    const emailUnavailable = await isEmailUnavailable();
+    if (emailUnavailable) {
+      return setEmailCondition({
+        valid: false,
+        invalid: true,
+        msg: 'Email unavailable',
+      });
     }
+
+    return setEmailCondition({ valid: true, invalid: false, msg: '' });
   };
 
   const authCodeValidation = (code: string) => {
@@ -72,13 +76,21 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
 
   const sendAuthCode = async () => {
     setAuthCondition({ ...AUTH_CONDITION, requiring: true });
+
+    const emailAlreadyUsed = await isEmailUnavailable();
+    if (emailAlreadyUsed) {
+      setAuthCondition({ ...AUTH_CONDITION, msg: 'This email is NOT available' });
+      return setEmailCondition({ ...INITIAL_CONDITION, invalid: true });
+    }
+
     const emailAuth = await axiosEmailAuth(email);
     if (emailAuth && 'code' in emailAuth) {
-      const authCodeHash = bcrypt.hashSync(emailAuth.code, 10);
+      const authCodeHash = bcrypt.hashSync(emailAuth.code, bcrypt.genSaltSync());
       setCookie('email_auth_pair', authCodeHash);
       setTimeout(() => setEmailTimeout(true), 20000);
       return setAuthCondition({ ...AUTH_CONDITION, success: true });
     }
+
     return setAuthCondition({
       ...AUTH_CONDITION, msg: 'Error! Please, try again later.'
     });
