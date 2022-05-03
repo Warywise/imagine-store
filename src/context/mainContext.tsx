@@ -100,7 +100,7 @@ export function MainProvider({ children }: PropChild) {
       refreshTokenInterval();
     } else {
       setCurrentUser(INIT_USER);
-      navigateTo('/', { replace: true });
+      // navigateTo('/', { replace: true });
     }
   }, [active]);
 
