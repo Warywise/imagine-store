@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, KeyboardEvent, ChangeEvent } from 'react';
+import React, { useContext, useEffect, useState, KeyboardEvent } from 'react';
 import { Button } from 'react-bootstrap';
 
 import { StoreContext } from '../../../context/storeContext';

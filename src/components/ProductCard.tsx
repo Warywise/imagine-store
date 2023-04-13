@@ -25,7 +25,7 @@ export default function ProductCard(product: ProductType) {
 
   const verifyFavorites = () =>
     favorites.some((fav) => fav.name === name && fav.provider === provider);
-  
+
   const handleFavorites = () => {
     if (verifyFavorites()) {
       const newFavorites = favorites
@@ -54,14 +54,16 @@ export default function ProductCard(product: ProductType) {
       <BSCarousel interval={null} fade className='card-carousel'>
         {image.map((img, ind) =>
           <BSCarousel.Item key={`${ind}${name}`} className='card-carousel-item'>
-            <img src={img} alt={name} />
+            <img src={img} alt={name} onClick={redirect} />
           </BSCarousel.Item>)}
       </BSCarousel>
       <div onClick={redirect}>
         <h5>{name}</h5>
         <p className='text-muted'>{category.name}</p>
-        <hr />
-        <p className='card-price'>{priceFormat.format(hasDiscount? discountPrice : +(price))}</p>
+        <>
+          <hr />
+          <p className='card-price'>{priceFormat.format(hasDiscount ? discountPrice : +(price))}</p>
+        </>
       </div>
     </div>
   );

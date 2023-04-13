@@ -66,7 +66,7 @@ export default function ProductDetail() {
         <Modal.Body>
           <b>Price:</b>
           {product.hasDiscount
-            ? (<><br/><s className='text-muted'>{priceFormat.format(+(product.price))}</s>
+            ? (<><s className='text-muted'>{priceFormat.format(+(product.price))}</s>
               <p>{priceFormat.format(discountPrice)}</p></>)
             : (<p>{priceFormat.format(+(product.price))}</p>)}
           <b>Description:</b>

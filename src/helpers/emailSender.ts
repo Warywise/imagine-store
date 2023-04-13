@@ -1,5 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import { AxiosErrorResponse } from '../interfaces/default';
 
 type EmailAuthReturn = { code: string } | { error: string };
 
@@ -45,7 +46,7 @@ export async function axiosEmailAuth(email: string): Promise<EmailAuthReturn> {
     }).then((response) => response.status);
     return { code: CODE };
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<EmailAuthReturn>;
     return response?.data;
   }
 }

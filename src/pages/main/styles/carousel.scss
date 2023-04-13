@@ -12,7 +12,9 @@
 
     img {
       border-radius: 5px;
+      height: calc(20vh + 5vmin);
       width: 50vw;
+      object-fit: cover;
     }
 
     div {
@@ -54,6 +56,7 @@
       gap: 1rem;
 
       img {
+        height: calc(20vh + 5vmin);
         width: 40vw;
       }
 
@@ -76,16 +79,18 @@
   }
 }
 
-@media screen and (min-width: 1050px) {
+@media screen and (min-width: 1024px) {
   .main-carousel {
     height: calc(15rem + 15vmin);
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
 
     .carousel-item .carousel-item-content {
       gap: 1rem;
 
       img {
-        width: calc(30vw - 5vmin);
+
+        height: calc(30vh + 5vmin);
+        width: calc(40vw - 10vmin);
       }
 
       div {
