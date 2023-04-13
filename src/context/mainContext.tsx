@@ -1,7 +1,7 @@
 import React, {
   createContext, Dispatch, SetStateAction, useEffect, useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { axiosGetter, axiosGetUser, axiosRefreshToken } from '../helpers/axios';
 import { destroyCookie, getCookie, setCookie } from '../helpers/cookie';
@@ -39,10 +39,11 @@ export function MainProvider({ children }: PropChild) {
   const [cart, setCart] = useState([] as ProductType[]);
   const [favorites, setFavorites] = useState([] as ProductType[]);
 
-  const navigateTo = useNavigate();
+  // const navigateTo = useNavigate();
   const TEN_MINUTES = 1000 * 60 * 10;
 
   const getCategories = async () => {
+    
     const categoriesResult: CategoryType[] = await axiosGetter('/categories');
     if (Array.isArray(categoriesResult)) {
       setCategories(categoriesResult);

@@ -1,3 +1,5 @@
+import { AxiosError, AxiosResponse } from "axios";
+
 export interface LoginReturn {
   email: string;
   name: string;

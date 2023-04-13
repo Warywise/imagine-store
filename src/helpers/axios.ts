@@ -1,5 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { CreateUser, LoginReturn } from '../interfaces/auth';
+import { AxiosErrorResponse } from '../interfaces/default';
 
 const URL = 'http://localhost:3001';
 
@@ -15,7 +16,7 @@ export async function axiosLogin({ email, hash }: LoginData): Promise<LoginRetur
       timeout: 10000,
     }).then((response) => response.data) as LoginReturn;
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }
@@ -29,7 +30,7 @@ export async function axiosGetUser({ email, token: authorization }: GetUserData)
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }
@@ -43,7 +44,7 @@ export async function axiosGetUserInfos({ email, token: authorization }: GetUser
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }
@@ -58,7 +59,7 @@ export async function axiosRefreshToken({ email, token: authorization }: GetUser
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }
@@ -71,7 +72,7 @@ export async function axiosGetter(url: string) {
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }
@@ -85,7 +86,7 @@ export async function axiosCreate(data: CreateUser) {
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {
-    const { response } = error as AxiosError;
+    const { response } = error as AxiosErrorResponse<LoginReturn>;
     return response?.data;
   }
 }

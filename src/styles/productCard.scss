@@ -2,6 +2,9 @@
   border-radius: 5px;
   box-shadow: 0.75px 1px 3px #e5e5e5, 0.25px 0.75px 5px #171717de;
   contain: content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
 
   .favorite-icon {
@@ -20,7 +23,9 @@
     width: 100%;
 
       img {
-        width: 100%;
+        height: 25vh;
+        min-width: 100%;
+        object-fit: cover;
       }
   }
 
