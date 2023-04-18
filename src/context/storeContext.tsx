@@ -9,6 +9,7 @@ type StoreType = {
   products: ProductType[],
   setProducts: Dispatch<SetStateAction<ProductType[]>>,
   categories: CategoryType[],
+  categoryFilter: string,
   query: string,
   setQuery: Dispatch<SetStateAction<string>>,
   setPage: Dispatch<SetStateAction<number>>,
@@ -34,17 +35,19 @@ export function StoreProvider({ children }: PropChild) {
     if (query) {
       filter.name = query;
     }
+    if (categoryFilter) {
+      filter.category = categoryFilter;
+    }
 
     const result = await axiosGetter('/products/query', filter) as { products?: ProductType[], total: number };
-    if (result.products) {
-      setProducts(result.products);
-      setTotal(result.total);
-    }
+
+    setProducts(result.products || []);
+    setTotal(result.total || 0);
   };
 
   useEffect(() => {
     getProducts();
-  }, [page, query]);
+  }, [page, query, categoryFilter]);
 
   useEffect(() => {
     // if (allProducts.length > 0) {
@@ -64,6 +67,7 @@ export function StoreProvider({ children }: PropChild) {
     query,
     setQuery,
     categories,
+    categoryFilter,
     setPage,
     total,
     limit,
@@ -71,7 +75,7 @@ export function StoreProvider({ children }: PropChild) {
 
   return (
     <StoreContext.Provider value={storeValue}>
-      { children }
+      {children}
     </StoreContext.Provider>
   );
 }
@@ -79,7 +83,7 @@ export function StoreProvider({ children }: PropChild) {
 export function useStoreProvider(children: JSX.Element) {
   return (
     <StoreProvider>
-      { children }
+      {children}
     </StoreProvider>
   );
 }

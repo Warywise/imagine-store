@@ -8,7 +8,7 @@ const Pagination: React.FC<{ limit: number, total: number, setPage: (page: numbe
   { limit, total, setPage }
 ) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pagesTotal = Math.fround(total / limit);
+  const pagesTotal = Math.ceil(total / limit);
 
   const getPages = () => {
     const pages = [];
