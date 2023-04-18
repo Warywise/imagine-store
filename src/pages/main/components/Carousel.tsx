@@ -1,19 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import BSCarousel from 'react-bootstrap/Carousel';
-
-import { StoreContext } from '../../../context/storeContext';
+import LoadingIndicator from 'react-bootstrap/Spinner';
 
 import '../styles/carousel.scss';
+import { axiosGetter } from '../../../helpers/axios';
+import { ProductType } from '../../../interfaces/store';
 
 export default function Carousel() {
-  const { allProducts } = useContext(StoreContext);
+  const [products, setProducts] = useState([] as ProductType[]);
+  const [loading, setLoading] = useState(true);
 
-  const getProductsWithDiscount = () => allProducts
-    .filter(({hasDiscount}) => hasDiscount);
+  const getProducts = async () => {
+    const response = await axiosGetter('/products/query', { hasDiscount: true, take: 10, skip: 0, orderBy: { price: 'asc' } });
+    setProducts(response?.products || []);
+    setLoading(false);
+  };
 
-  const getCarouselItems = () => getProductsWithDiscount().map((
+  const getCarouselItems = () => products.map((
     { image, id, name, price, discountValue }
   ) => {
     const discountPrice = +(price) - (+(price) * +(discountValue));
@@ -22,7 +27,7 @@ export default function Carousel() {
     return (
       <BSCarousel.Item key={id} className='carousel-item'>
         <div className='carousel-item-content'>
-          <img src={image[0]} alt={name}/>
+          <img src={image[0]} alt={name} />
           <div>
             <h5>{name}</h5>
             <p className='original-price'>{priceFormat.format(+(price))}</p>
@@ -36,9 +41,19 @@ export default function Carousel() {
     );
   });
 
+  useEffect(() => { getProducts(); }, []);
+
+  if (!products.length && !loading) return <></>;
+
   return (
     <BSCarousel variant='dark' pause='hover' className='main-carousel'>
-      { allProducts.length > 0 && getCarouselItems() }
+      {products.length ?
+        getCarouselItems()
+        : (
+          <div className='loading-indicator'>
+            <LoadingIndicator animation='border' variant='secondary' />
+            <LoadingIndicator animation='grow' variant='light' />
+          </div>)}
     </BSCarousel>
   );
 }

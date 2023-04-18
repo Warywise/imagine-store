@@ -91,3 +91,13 @@ div.offcanvas-nav {
     text-decoration: none;
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  li > * {
+    border: none;
+    padding-inline: 1rem;
+  }
+}
