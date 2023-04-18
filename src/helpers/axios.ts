@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CreateUser, LoginReturn } from '../interfaces/auth';
-import { AxiosErrorResponse } from '../interfaces/default';
+import { AxiosErrorResponse, anyType } from '../interfaces/default';
 
 const URL = 'http://localhost:3001';
 
@@ -64,11 +64,16 @@ export async function axiosRefreshToken({ email, token: authorization }: GetUser
   }
 }
 
-export async function axiosGetter(url: string) {
+export async function axiosGetter(url: string, filter?: { [key: string]: anyType }) {
   try {
     return await axios({
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       method: 'GET',
       url: `${URL}${url}`,
+      params: { ...filter },
       timeout: 10000,
     }).then((response) => response.data);
   } catch (error) {

@@ -6,19 +6,42 @@
   margin: 1rem auto;
   width: 95%;
 
-  input[type='text'] {
-    border: solid thin #171717de;
-    border-radius: 3px;
-    padding: 0.25rem 0.5rem;
-    width:65%;
+  .search-input {
+    display: flex;
+    position: relative;
+    width: 65%;
 
-    &:focus {
-      outline: solid thin #1717176e;
+    input[type='text'] {
+      border: solid thin #171717de;
+      border-radius: 3px;
+      padding: 0.25rem 0.5rem;
+      width: 100%;
+
+      &:focus {
+        outline: solid thin #1717176e;
+      }
+    }
+
+    .search-clear {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      font-size: 1.25rem;
+      outline: none;
+      padding: 0.25rem 0.5rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      &:hover {
+        background-color: #e5e5e57f;
+      }
     }
   }
 
   button {
     box-shadow: 0.25px 0.5px 1px #e5e5e5, 0.25px 0.5px 2px #171717de;
+    display: flex;
     font-weight: 500;
     text-shadow: 0.05px 0.25px 1px #171717de;
   }
