@@ -6,6 +6,24 @@
   justify-content: center;
   padding: 0 1rem;
 
+  .loading-indicator {
+    align-items: center;
+    // background-color: red;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    * {
+      height: 3em;
+      position: absolute;
+      top: 1em;
+      width: 3em;
+      z-index: 99;
+    }
+  }
+
   .carousel-item .carousel-item-content {
     display: flex;
     gap: 0.25rem;
@@ -34,15 +52,15 @@
         line-height: 0;
         margin-top: -0.75rem;
       }
-      
-          .see-more-link {
-            font-size: calc(1rem + 1vw);
-            margin-top: 0.5rem;
 
-            span {
-            animation: MarginChange 1s infinite ease-in;
-            }
-          }
+      .see-more-link {
+        font-size: calc(1rem + 1vw);
+        margin-top: 0.5rem;
+
+        span {
+          animation: MarginChange 1s infinite ease-in;
+        }
+      }
     }
   }
 }
@@ -62,15 +80,15 @@
 
       div {
         width: 50vw;
-  
+
         h5 {
           font-size: 2rem;
         }
-  
+
         .original-price {
           font-size: 1.5rem;
         }
-  
+
         .new-price {
           font-size: 1.5rem;
         }
@@ -95,15 +113,15 @@
 
       div {
         width: 50vw;
-  
+
         h5 {
           font-size: 2rem;
         }
-  
+
         .original-price {
           font-size: 1.5rem;
         }
-  
+
         .new-price {
           font-size: 1.5rem;
         }
@@ -113,7 +131,7 @@
 }
 
 @keyframes MarginChange {
-  50% { 
+  50% {
     margin-left: 0.15rem;
     margin-right: 0.15rem;
   }

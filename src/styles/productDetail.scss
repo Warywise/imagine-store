@@ -11,6 +11,12 @@
   width: 100vw;
   z-index: 9999;
 
+  .loading {
+    height: 3rem;
+    margin: 8rem;
+    width: 3rem;
+  }
+
   .product-modal {
     background-color: #e5e5e5;
     padding: 1rem;
