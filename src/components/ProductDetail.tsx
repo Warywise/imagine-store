@@ -19,7 +19,7 @@ import '../styles/productDetail.scss';
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const { allProducts } = useContext(StoreContext);
+  const { products } = useContext(StoreContext);
   const { active, cart, setCart, favorites } = useContext(MainContext);
 
   const navigateTo = useNavigate();
@@ -29,7 +29,7 @@ export default function ProductDetail() {
     return navigateTo('/');
   };
 
-  const product = (allProducts ?? favorites)
+  const product = (products ?? favorites)
     .find((prod) => prod.id === +(id as string)) as ProductType;
   console.log(product);
 

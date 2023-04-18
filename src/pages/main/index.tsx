@@ -11,9 +11,10 @@ import { useStoreProvider } from '../../context/storeContext';
 import Carousel from './components/Carousel';
 import SearchBar from './components/SearchBar';
 import { Outlet } from 'react-router-dom';
+import Pagination from '../../components/Pagination';
 
-function Main() {
-  const { products } = useContext(StoreContext);
+const Main: React.FC = () => {
+  const { products, limit, total, setPage } = useContext(StoreContext);
 
   return (
     <>
@@ -24,10 +25,11 @@ function Main() {
       <section className='main-products'>
         {products.length > 0 && products.map((prod) => {
           return (<ProductCard key={prod.id} {...prod} />);
-        })} 
+        })}
       </section>
+      <Pagination limit={limit} total={total} setPage={setPage} />
     </>
   );
-}
+};
 
 export default useStoreProvider(<Main />);
