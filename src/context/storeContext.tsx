@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import { axiosGetter } from '../helpers/axios';
+import { fetcherGet } from '../helpers/axios';
 
 import { anyType, PropChild } from '../interfaces/default';
 import { CategoryType, ProductType } from '../interfaces/store';
@@ -13,6 +13,8 @@ type StoreType = {
   query: string,
   setQuery: Dispatch<SetStateAction<string>>,
   setPage: Dispatch<SetStateAction<number>>,
+  sort: string,
+  setSort: Dispatch<SetStateAction<string>>,
   total: number,
   limit: number,
 };
@@ -26,12 +28,14 @@ export function StoreProvider({ children }: PropChild) {
   const [total, setTotal] = useState(0);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('{ "name": "asc" }');
 
   const limit = 20;
 
   const getProducts = async () => {
     const skip = (page - 1) * limit;
-    const filter = { take: 20, skip, orderBy: { name: 'asc' } } as { [key: string]: anyType };
+    const orderBy = JSON.parse(sort);
+    const filter = { take: 20, skip, orderBy } as { [key: string]: anyType };
     if (query) {
       filter.name = query;
     }
@@ -39,7 +43,7 @@ export function StoreProvider({ children }: PropChild) {
       filter.category = categoryFilter;
     }
 
-    const result = await axiosGetter('/products/query', filter) as { products?: ProductType[], total: number };
+    const result = await fetcherGet('/products/query', filter) as { products?: ProductType[], total: number };
 
     setProducts(result.products || []);
     setTotal(result.total || 0);
@@ -47,19 +51,7 @@ export function StoreProvider({ children }: PropChild) {
 
   useEffect(() => {
     getProducts();
-  }, [page, query, categoryFilter]);
-
-  useEffect(() => {
-    // if (allProducts.length > 0) {
-    //   if (categoryFilter === '') {
-    //     setProducts(allProducts);
-    //   } else {
-    //     const productsToRender = allProducts
-    //       .filter(({ category }) => category.name.includes(categoryFilter));
-    //     setProducts(productsToRender);
-    //   }
-    // }
-  }, [categoryFilter]);
+  }, [page, query, categoryFilter, sort]);
 
   const storeValue = {
     products,
@@ -69,6 +61,8 @@ export function StoreProvider({ children }: PropChild) {
     categories,
     categoryFilter,
     setPage,
+    sort,
+    setSort,
     total,
     limit,
   };

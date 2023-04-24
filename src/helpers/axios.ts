@@ -7,7 +7,7 @@ const URL = 'http://localhost:3001';
 type LoginData = { email: string, hash: string };
 type GetUserData = { email: string, token: string };
 
-export async function axiosLogin({ email, hash }: LoginData): Promise<LoginReturn> {
+export async function fetchLogin({ email, hash }: LoginData): Promise<LoginReturn> {
   try {
     return await axios({
       method: 'POST',
@@ -21,7 +21,7 @@ export async function axiosLogin({ email, hash }: LoginData): Promise<LoginRetur
   }
 }
 
-export async function axiosGetUser({ email, token: authorization }: GetUserData) {
+export async function fetchUser({ email, token: authorization }: GetUserData) {
   try {
     return await axios({
       method: 'GET',
@@ -35,7 +35,7 @@ export async function axiosGetUser({ email, token: authorization }: GetUserData)
   }
 }
 
-export async function axiosGetUserInfos({ email, token: authorization }: GetUserData) {
+export async function fetchUserInfos({ email, token: authorization }: GetUserData) {
   try {
     return await axios({
       method: 'GET',
@@ -49,7 +49,7 @@ export async function axiosGetUserInfos({ email, token: authorization }: GetUser
   }
 }
 
-export async function axiosRefreshToken({ email, token: authorization }: GetUserData) {
+export async function fetchRefreshToken({ email, token: authorization }: GetUserData) {
   try {
     return await axios({
       method: 'POST',
@@ -64,7 +64,7 @@ export async function axiosRefreshToken({ email, token: authorization }: GetUser
   }
 }
 
-export async function axiosGetter(url: string, filter?: { [key: string]: anyType }) {
+export async function fetcherGet(url: string, filter?: { [key: string]: anyType }) {
   try {
     return await axios({
       headers: {
@@ -82,7 +82,7 @@ export async function axiosGetter(url: string, filter?: { [key: string]: anyType
   }
 }
 
-export async function axiosCreate(data: CreateUser) {
+export async function fetcherCreateUser(data: CreateUser) {
   try {
     return await axios({
       method: 'POST',

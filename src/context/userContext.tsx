@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MainContext } from './mainContext';
 
 import { getCookie } from '../helpers/cookie';
-import { axiosGetUserInfos } from '../helpers/axios';
+import { fetchUserInfos } from '../helpers/axios';
 
 import { PropChild } from '../interfaces/default';
 import { Adress, Card, InfosType, Purchase } from '../interfaces/userInfos';
@@ -40,7 +40,7 @@ export function UserProvider({ children }: PropChild) {
   const getUserInfos = async () => {
     const auth = getCookie('auth_handler');
     if (auth && typeof auth !== 'string') {
-      const infos: InfosType = await axiosGetUserInfos(auth);
+      const infos: InfosType = await fetchUserInfos(auth);
 
       if ('cpf' in infos) setUser({ ...currentUser, cpf: infos.cpf });
       if ('userAdresses' in infos) setAdresses(infos.userAdresses);

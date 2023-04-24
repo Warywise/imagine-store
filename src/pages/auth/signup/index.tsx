@@ -9,7 +9,7 @@ import FormInput from '../components/FormInput';
 
 import * as Validation from '../../../helpers/validations';
 import { MainContext } from '../../../context/mainContext';
-import { axiosCreate } from '../../../helpers/axios';
+import { fetcherCreateUser } from '../../../helpers/axios';
 import AuthEmailSignup from '../components/AuthEmailSignup';
 
 const INITIAL_CONDITION = {
@@ -94,7 +94,7 @@ export default function Signup() {
       lastName,
     };
 
-    const { error } = await axiosCreate(body);
+    const { error } = await fetcherCreateUser(body);
 
     if (error) {
       setPasswordCondition(INITIAL_CONDITION);

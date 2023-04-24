@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
-import { axiosGetter, axiosGetUser, axiosRefreshToken } from '../helpers/axios';
+import { fetcherGet, fetchUser, fetchRefreshToken } from '../helpers/axios';
 import { destroyCookie, getCookie, setCookie } from '../helpers/cookie';
 import { decrypt, encrypt } from '../helpers/crypto';
 
@@ -44,7 +44,7 @@ export function MainProvider({ children }: PropChild) {
 
   const getCategories = async () => {
     
-    const categoriesResult: CategoryType[] = await axiosGetter('/categories');
+    const categoriesResult: CategoryType[] = await fetcherGet('/categories');
     if (Array.isArray(categoriesResult)) {
       setCategories(categoriesResult);
     }
@@ -52,7 +52,7 @@ export function MainProvider({ children }: PropChild) {
 
   const getUserData = async () => {
     const auth = getCookie('auth_handler');
-    if (auth && typeof auth !== 'string') return await axiosGetUser(auth);
+    if (auth && typeof auth !== 'string') return await fetchUser(auth);
     return null;
   };
 
@@ -64,7 +64,7 @@ export function MainProvider({ children }: PropChild) {
         return setActive(false);
       }
 
-      const userData = await axiosRefreshToken(auth);
+      const userData = await fetchRefreshToken(auth);
       if (userData?.active) {
         const { email, name, token } = userData;
         setCookie('auth_handler', token);
