@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState, KeyboardEvent } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, FormSelect } from 'react-bootstrap';
 
 import { StoreContext } from '../../../context/storeContext';
 
 export default function SearchBar() {
-  const { products, setQuery, setPage, query, categoryFilter } = useContext(StoreContext);
+  const {
+    products, setQuery, setPage, query, categoryFilter, sort, setSort
+  } = useContext(StoreContext);
 
   const [search, setSearch] = useState('');
   const [notFound, setNotFound] = useState(false);
@@ -39,6 +41,19 @@ export default function SearchBar() {
 
   return (
     <div className='main-search-bar'>
+      <span>Sort By:</span>
+      <FormSelect
+        className='search-sort'
+        size='sm'
+        onChange={({ target }) => setSort(target.value)}
+        title='Sort by'
+        value={sort}
+      >
+        <option value={'{ "name": "asc" }'}>A - Z</option>
+        <option value={'{ "name": "desc" }'}>Z - A</option>
+        <option value={'{ "price": "asc" }'}>Lower price</option>
+        <option value={'{ "price": "desc" }'}>Higher price</option>
+      </FormSelect>
       <span className='search-input'>
         <input
           type='text'
