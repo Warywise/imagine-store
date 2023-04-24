@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import FormInput from '../components/FormInput';
 
 import * as Validation from '../../../helpers/validations';
-import { axiosLogin } from '../../../helpers/axios';
+import { fetchLogin } from '../../../helpers/axios';
 import { setCookie } from '../../../helpers/cookie';
 import { MainContext } from '../../../context/mainContext';
 
@@ -71,7 +71,7 @@ export default function Login() {
       hash: password,
     };
 
-    const { email, name, token, error } = await axiosLogin(body);
+    const { email, name, token, error } = await fetchLogin(body);
 
     if (error) {
       setEmailCondition(INITIAL_CONDITION);

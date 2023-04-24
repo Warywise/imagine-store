@@ -5,7 +5,7 @@ import { Alert, Button, Form } from 'react-bootstrap';
 import FormInput from './FormInput';
 import { axiosEmailAuth } from '../../../helpers/emailSender';
 import { getCookie, setCookie } from '../../../helpers/cookie';
-import { axiosGetter } from '../../../helpers/axios';
+import { fetcherGet } from '../../../helpers/axios';
 import { emailVerifier } from '../../../helpers/validations';
 
 import { UserConditionReturn } from '../../../interfaces/userInfos';
@@ -36,7 +36,7 @@ export default function AuthEmailSignup({ email, setEmail, setEmailAuth }: Email
   const [emailTimeout, setEmailTimeout] = useState(false);
 
   const isEmailUnavailable = async () => {
-    const emailUnavailable = await axiosGetter(`/users/${email}`) as UserConditionReturn;
+    const emailUnavailable = await fetcherGet(`/users/${email}`) as UserConditionReturn;
     return emailUnavailable.active ?? false;
   };
 

@@ -5,7 +5,7 @@ import BSCarousel from 'react-bootstrap/Carousel';
 import LoadingIndicator from 'react-bootstrap/Spinner';
 
 import '../styles/carousel.scss';
-import { axiosGetter } from '../../../helpers/axios';
+import { fetcherGet } from '../../../helpers/axios';
 import { ProductType } from '../../../interfaces/store';
 
 export default function Carousel() {
@@ -13,7 +13,7 @@ export default function Carousel() {
   const [loading, setLoading] = useState(true);
 
   const getProducts = async () => {
-    const response = await axiosGetter('/products/query', { hasDiscount: true, take: 10, skip: 0, orderBy: { price: 'asc' } });
+    const response = await fetcherGet('/products/query', { hasDiscount: true, take: 10, skip: 0, orderBy: { price: 'asc' } });
     setProducts(response?.products || []);
     setLoading(false);
   };

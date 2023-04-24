@@ -4,7 +4,8 @@ import { AxiosErrorResponse } from '../interfaces/default';
 
 type EmailAuthReturn = { code: string } | { error: string };
 
-const URL = 'https://emailsendnodeapi.herokuapp.com/';
+const URL = 'https://emailsendapi.vercel.app/';
+// const URL = 'http://localhost:5000/';
 
 const getVerificationCode = () => uuid().match(/\w{6}/) as string[];
 
@@ -43,7 +44,8 @@ export async function axiosEmailAuth(email: string): Promise<EmailAuthReturn> {
       url: URL,
       data: getEmailBody(email, CODE),
       timeout: 15000,
-    }).then((response) => response.status);
+    });
+
     return { code: CODE };
   } catch (error) {
     const { response } = error as AxiosErrorResponse<EmailAuthReturn>;

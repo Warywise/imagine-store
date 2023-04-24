@@ -16,7 +16,7 @@ import { ProductType } from '../interfaces/store';
 import { MainContext } from '../context/mainContext';
 
 import '../styles/productDetail.scss';
-import { axiosGetter } from '../helpers/axios';
+import { fetcherGet } from '../helpers/axios';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -53,7 +53,7 @@ export default function ProductDetail() {
     if (prod) {
       setProduct(prod);
     } else {
-      axiosGetter(`/products/${id}`)
+      fetcherGet(`/products/${id}`)
         .then((res) => setProduct(res));
     }
   }, []);

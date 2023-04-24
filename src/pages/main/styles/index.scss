@@ -6,6 +6,11 @@
   margin: 1rem auto;
   width: 95%;
 
+  .search-sort {
+    height: min-content;
+    width: min-content;
+  }
+
   .search-input {
     display: flex;
     position: relative;
