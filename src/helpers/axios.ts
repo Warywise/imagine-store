@@ -2,7 +2,9 @@ import axios from 'axios';
 import { CreateUser, LoginReturn } from '../interfaces/auth';
 import { AxiosErrorResponse, anyType } from '../interfaces/default';
 
-const URL = 'http://localhost:3001';
+const URL = process.env.NODE_ENV === 'production'
+  ? 'https://an-awesome-api.vercel.app/'
+  : 'http://localhost:3001';
 
 type LoginData = { email: string, hash: string };
 type GetUserData = { email: string, token: string };

@@ -43,7 +43,6 @@ export function MainProvider({ children }: PropChild) {
   const TEN_MINUTES = 1000 * 60 * 10;
 
   const getCategories = async () => {
-    
     const categoriesResult: CategoryType[] = await fetcherGet('/categories');
     if (Array.isArray(categoriesResult)) {
       setCategories(categoriesResult);
@@ -58,6 +57,11 @@ export function MainProvider({ children }: PropChild) {
 
   const refreshToken = async () => {
     const auth = getCookie('auth_handler');
+
+    //
+    console.log({ auth });
+    //
+
     if (auth && typeof auth !== 'string') {
       if (currentUser.email !== auth.email) {
         destroyCookie('auth_handler');

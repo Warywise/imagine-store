@@ -23,7 +23,7 @@ const Main: React.FC = () => {
       <SearchBar />
       <Outlet />
       <section className='main-products'>
-        {!!products.length && products.map((prod) => {
+        {!!products?.length && products.map((prod) => {
           return (<ProductCard key={prod.id} {...prod} />);
         })}
       </section>

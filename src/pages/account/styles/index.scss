@@ -93,4 +93,20 @@
   .product-card {
     max-width: 20%;
   }
+
+  .shop-section .shop-tab-item {
+    .purchase-products-box {
+      border: solid 8px #ffff;
+      box-shadow: 0.25px 0.5px 2px #e5e5e5, 0.15px 0.25px 1px #171717de;
+      display: flex;
+      margin: 8px;
+      overflow-x: auto;
+      padding: 8px;
+      width: 90vw;
+
+      .purchase-product {
+        min-width: 30vw;
+      }
+    }
+  }
 }
