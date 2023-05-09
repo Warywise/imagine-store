@@ -94,27 +94,22 @@ export default function Login() {
       <Header />
       <Container className='d-flex mt-5 justify-content-center'>
         <Form action=''>
-          <Form.Group className='mb-3'>
-            <h1 className='mb-3'>Login</h1>
-            <Form.Label>E-mail</Form.Label>
-            <FormInput
-              stateCondition={emailCondition}
-              value={user}
-              setValue={setUser}
-              validation={emailValidation}
-              name='user'
-            />
-          </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label>Password</Form.Label>
-            <FormInput
-              stateCondition={passwordCondition}
-              value={password}
-              setValue={setPassword}
-              validation={passwordValidation}
-              name='password'
-            />
-          </Form.Group>
+          <h1 className='mb-3'>Login</h1>
+          <FormInput
+            stateCondition={emailCondition}
+            setValue={setUser}
+            validation={emailValidation}
+            value={user}
+            name='E-mail'
+            hasLabel
+          />
+          <FormInput
+            stateCondition={passwordCondition}
+            value={password}
+            setValue={setPassword}
+            validation={passwordValidation}
+            name='Password'
+          />
           <Form.Group className='mb-3'>
             <Button
               variant='outline-dark'
