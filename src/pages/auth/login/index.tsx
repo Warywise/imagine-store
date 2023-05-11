@@ -109,6 +109,7 @@ export default function Login() {
             setValue={setPassword}
             validation={passwordValidation}
             name='Password'
+            hasLabel
           />
           <Form.Group className='mb-3'>
             <Button

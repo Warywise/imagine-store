@@ -44,21 +44,22 @@ export function cardNameVerifier(cardName: string) {
 }
 
 export function cardNumberVerifier(cardNumber: string) {
-  if (invalidTerms.includes(cardNumber)) return '"Card Number" is required';
+  const formatedNumber = cardNumber.replace(/\D/g, '');
+  if (invalidTerms.includes(formatedNumber)) return '"Card Number" is required';
 
-  if (cardNumber.length !== 16) return '"Card Number" must be 16 characters';
+  if (formatedNumber.length !== 16) return '"Card Number" must be 16 characters';
 
   return false;
 }
 
-export function cardValidityVerifier(cardValidity: string) {
+export function cardExpirationVerifier(cardValidity: string) {
   if (invalidTerms.includes(cardValidity)) return '"Card Validity" is required';
 
   return CardValidityRegExp.test(cardValidity)
     ? false : '"Card Validity" must be valid: MM/YY';
 }
 
-export function cvvVerifier(cvv: string) {
+export function cardCvvVerifier(cvv: string) {
   if (invalidTerms.includes(cvv)) return '"CVV" is required';
 
   if (cvv.length !== 3) return '"CVV" must be 3 characters';

@@ -16,11 +16,13 @@ type FormInputProps = {
   reference?: RefObject<HTMLInputElement>,
   placeholder?: string,
   hasLabel?: boolean,
-  leftIcon?: JSX.Element,
+  leftIcon?: JSX.Element | string,
+  inlineLabel?: boolean,
+  format?(value: string): string,
 };
 
 export default function FormInput(
-  { stateCondition, value, setValue, validation, name, reference, placeholder, hasLabel = false, leftIcon }: FormInputProps
+  { stateCondition, value, setValue, validation, name, reference, placeholder, hasLabel = false, leftIcon, inlineLabel, format }: FormInputProps
 ) {
 
   const identifier = name.toLowerCase();
@@ -36,15 +38,16 @@ export default function FormInput(
             isValid={stateCondition.valid}
             isInvalid={stateCondition.invalid}
             onBlur={({ target }) => validation(target.value)}
+            onChange={({ target }) => format && (target.value = format(target.value))}
             type={identifier === 'password' ? 'password' : 'text'}
             name={identifier}
             className=''
             ref={reference}
             id={identifier}
-            aria-describedby={`${identifier}Feedback`}
+            aria-describedby={`${identifier}-feedback`}
           />
         </InputGroup>
-        <Form.Text id={`${identifier}Feedback`} muted>
+        <Form.Text id={`${identifier}-feedback`} muted>
           {stateCondition.msg}
         </Form.Text>
       </Form.Group>
@@ -54,8 +57,8 @@ export default function FormInput(
   if (setValue) {
     return (
       <Form.Group className='mb-3'>
-        <InputGroup>
-          {hasLabel && <Form.Label>{name}</Form.Label>}
+        <InputGroup className={inlineLabel ? '' : 'd-grid'}>
+          {hasLabel && <Form.Label className='me-1 align-self-center'>{name}:</Form.Label>}
           {leftIcon && <InputGroup.Text id="basic-addon1">{leftIcon}</InputGroup.Text>}
           <Form.Control
             isValid={stateCondition.valid}
@@ -63,7 +66,7 @@ export default function FormInput(
             onBlur={({ target }) => validation(target.value)}
             type={name === 'password' ? 'password' : 'text'}
             name={name}
-            className=''
+            className='w-auto'
             value={value}
             onChange={({ target }) => setValue(target.value)}
             id={name}

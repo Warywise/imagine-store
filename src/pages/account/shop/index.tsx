@@ -1,40 +1,17 @@
 import React, { createRef, useContext, useState } from 'react';
-import { Button, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
+import { Button, Card, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { FaRegCreditCard } from 'react-icons/fa';
 
 import Header from '../../../components/header/Header';
-import * as Validation from '../../../helpers/validations';
 import { MainContext } from '../../../context/mainContext';
 // import { UserContext } from '../../../context/userContext';
 import PurchaseProducts from '../components/PurchaseProducts';
-import FormInput from '../../auth/components/FormInput';
+import CardDetails from '../components/CardDetails';
 
-const INITIAL_CONDITION = {
-  valid: false,
-  invalid: false,
-  msg: '',
-};
+
 
 export default function Shop() {
   const [key, setKey] = useState('check');
-
-  const cardNumber = createRef<HTMLInputElement>();
-  const [cardNumberCondition, setCardNumberCondition] = useState(INITIAL_CONDITION);
-  const cardNumberValidation = (cardNumberValue: string) => {
-    const cardNumberResult = Validation.cardNumberVerifier(cardNumberValue);
-    if (cardNumberResult) {
-      return setCardNumberCondition({
-        valid: false, invalid: true, msg: cardNumberResult,
-      });
-    }
-
-    setCardNumberCondition({ valid: true, invalid: false, msg: '' });
-  };
-
-  const cardName = createRef<HTMLInputElement>();
-  const cardExpiration = createRef<HTMLInputElement>();
-  const cardCVV = createRef<HTMLInputElement>();
 
   const { cart } = useContext(MainContext);
   // const { user } = useContext(UserContext);
@@ -51,7 +28,7 @@ export default function Shop() {
   }, 0);
 
   const dontHaveProducts = () => (
-    <h5 className='text-info mt-5 bg-dark bg-gradient p-3'>
+    <h5 className='text-info mt-3 bg-dark bg-gradient p-3 w-100'>
       Your shopping cart is empty<hr />
       <Button variant='btn btn-outline-warning' onClick={() => navigateTo('/')}>
         Go Shop?
@@ -82,48 +59,11 @@ export default function Shop() {
             <strong>Total Price:</strong>
             <h5>{priceFormat.format(totalPrice())}</h5>
           </Tab>
+
           <Tab eventKey="payment" title="Payment Method" className='shop-tab-item'>
-            <h5><strong className='text-muted'>
-              Card Details:
-            </strong></h5>
-            <FormInput
-              stateCondition={cardNumberCondition}
-              validation={cardNumberValidation}
-              reference={cardNumber}
-              leftIcon={<FaRegCreditCard />}
-              placeholder='Card Number'
-              name='user'
-            />
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">Cardholder Name</InputGroup.Text>
-              <Form.Control
-                placeholder="Card Name"
-                aria-label="card name"
-                aria-describedby="basic-addon1"
-                ref={cardName}
-              />
-            </InputGroup>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">Expiration Date</InputGroup.Text>
-              <Form.Control
-                placeholder="Expiration Date"
-                aria-label="expiration date"
-                aria-describedby="basic-addon1"
-                ref={cardExpiration}
-              />
-            </InputGroup>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">CVV</InputGroup.Text>
-              <Form.Control
-                aria-label="cvv"
-                aria-describedby="basic-addon1"
-                ref={cardCVV}
-              />
-            </InputGroup>
-
-            <Button variant='btn btn-outline-warning' onClick={() => console.log(cardNumber.current?.value)} />
-
+            <CardDetails />
           </Tab>
+
           <Tab eventKey="confirmation" title="Purchase Confirmation" className='shop-tab-item' disabled>
             {/*  */}
           </Tab>
