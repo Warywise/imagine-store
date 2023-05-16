@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { Button, Tab, Tabs } from 'react-bootstrap';
+import React, { createRef, useContext, useState } from 'react';
+import { Button, Card, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../../components/header/Header';
 import { MainContext } from '../../../context/mainContext';
 // import { UserContext } from '../../../context/userContext';
 import PurchaseProducts from '../components/PurchaseProducts';
+import CardDetails from '../components/CardDetails';
+
+
 
 export default function Shop() {
   const [key, setKey] = useState('check');
+
   const { cart } = useContext(MainContext);
   // const { user } = useContext(UserContext);
 
@@ -24,8 +28,8 @@ export default function Shop() {
   }, 0);
 
   const dontHaveProducts = () => (
-    <h5 className='text-info mt-5 bg-dark bg-gradient p-3'>
-      Your shopping cart is empty<hr/>
+    <h5 className='text-info mt-3 bg-dark bg-gradient p-3 w-100'>
+      Your shopping cart is empty<hr />
       <Button variant='btn btn-outline-warning' onClick={() => navigateTo('/')}>
         Go Shop?
       </Button>
@@ -55,10 +59,12 @@ export default function Shop() {
             <strong>Total Price:</strong>
             <h5>{priceFormat.format(totalPrice())}</h5>
           </Tab>
-          <Tab eventKey="payment" title="Payment Method" disabled>
-            {/*  */}
+
+          <Tab eventKey="payment" title="Payment Method" className='shop-tab-item'>
+            <CardDetails />
           </Tab>
-          <Tab eventKey="confirmation" title="Purchase Confirmation" disabled>
+
+          <Tab eventKey="confirmation" title="Purchase Confirmation" className='shop-tab-item' disabled>
             {/*  */}
           </Tab>
         </Tabs>
