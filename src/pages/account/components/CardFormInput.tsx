@@ -8,14 +8,15 @@ type StateCondition = {
 type CardInputProps = {
   validator: (value: string) => string | false,
   reference: React.RefObject<HTMLInputElement>,
-  leftIcon: JSX.Element | string,
+  leftIcon?: JSX.Element | string,
   state: [StateCondition, Dispatch<SetStateAction<StateCondition>>],
   placeholder: string,
   name: string,
   format?(value: string): string,
+  hasLabel?: boolean,
 };
 
-const CardFormInput: React.FC<CardInputProps> = ({ validator, reference, leftIcon, state, placeholder, name, format }) => {
+const CardFormInput: React.FC<CardInputProps> = ({ validator, state, ...props }) => {
   const [currentCondition, setCondition] = state;
 
   const validation = (cardNumberValue: string) => {
@@ -36,11 +37,7 @@ const CardFormInput: React.FC<CardInputProps> = ({ validator, reference, leftIco
     <FormInput
       stateCondition={currentCondition}
       validation={validation}
-      reference={reference}
-      leftIcon={leftIcon}
-      placeholder={placeholder}
-      name={name}
-      format={format}
+      {...props}
     />
   );
 };
