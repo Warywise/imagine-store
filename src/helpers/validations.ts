@@ -3,54 +3,33 @@ const CardValidityRegExp = /^\d{2}\/\d{2}$/;
 const invalidTerms = [undefined, ''];
 
 export function emailVerifier(email: string) {
-  if (invalidTerms.includes(email)) {
-    return '"Email" is required';
-  }
+  if (invalidTerms.includes(email))  return '"Email" is required';
 
   return EmailRegExp.test(email)
     ? false : '"Email" must be valid: email@example.com';
 }
 
-export function passwordVerifier(password: string) {
-  if (invalidTerms.includes(password)) return '"Password" is required';
+export function minLengthVerifier(value: string, field: string, length: number, exact?: boolean, onlyNumbers?: boolean) {
+  const formatedValue = onlyNumbers ? value.replace(/\D/g, '') : value;
 
-  if (password.length < 6) return '"Password" must be at least 6 characters';
+  if (invalidTerms.includes(formatedValue)) return `"${field}" is required`;
 
-  return false;
-}
+  if (!exact && formatedValue.length < length) return `"${field}" must be at least ${length} characters`;
 
-export function nameVerifier(name: string) {
-  if (invalidTerms.includes(name)) return '"Name/Last Name" is required';
-
-  if (name.length < 3) return '"Name/Last Name" must be at least 6 characters';
+  if (exact && formatedValue.length !== length) return `"${field}" must be ${length} characters`;
 
   return false;
 }
 
-export function cpfVerifier(cpf: string) {
-  if (invalidTerms.includes(cpf)) return '"CPF" is required';
+export const passwordVerifier = (password: string) => minLengthVerifier(password, 'Password', 6);
 
-  if (cpf.length !== 11) return '"CPF" must be 11 characters';
+export const nameVerifier = (name: string) => minLengthVerifier(name, 'Name/Last Name', 3);
 
-  return false;
-}
+export const cpfVerifier = (cpf: string) => minLengthVerifier(cpf, 'CPF', 11, true, true);
 
-export function cardNameVerifier(cardName: string) {
-  if (invalidTerms.includes(cardName)) return '"Card Name" is required';
+export const cardNameVerifier = (cardName: string) => minLengthVerifier(cardName, 'Card Name', 3);
 
-  if (cardName.length < 3) return '"Card Name" must be at least 3 characters';
-
-  return false;
-}
-
-export function cardNumberVerifier(cardNumber: string) {
-  const formatedNumber = cardNumber.replace(/\D/g, '');
-  if (invalidTerms.includes(formatedNumber)) return '"Card Number" is required';
-
-  if (formatedNumber.length !== 16) return '"Card Number" must be 16 characters';
-
-  return false;
-}
+export const cardNumberVerifier = (cardNumber: string) => minLengthVerifier(cardNumber, 'Card Number', 16, true, true);
 
 export function cardExpirationVerifier(cardValidity: string) {
   if (invalidTerms.includes(cardValidity)) return '"Card Validity" is required';
@@ -59,10 +38,14 @@ export function cardExpirationVerifier(cardValidity: string) {
     ? false : '"Card Validity" must be valid: MM/YY';
 }
 
-export function cardCvvVerifier(cvv: string) {
-  if (invalidTerms.includes(cvv)) return '"CVV" is required';
+export const cardCvvVerifier = (cvv: string) => minLengthVerifier(cvv, 'CVV', 3, true, true);
 
-  if (cvv.length !== 3) return '"CVV" must be 3 characters';
+export const addressVerifier = (address: string) => minLengthVerifier(address, 'Address', 5);
 
-  return false;
-}
+export const districtVerifier = (district: string) => minLengthVerifier(district, 'District/Neighborhood', 2);
+
+export const cityVerifier = (city: string) => minLengthVerifier(city, 'City', 2);
+
+export const stateVerifier = (state: string) => minLengthVerifier(state, 'State', 2);
+
+export const zipCodeVerifier = (zipCode: string) => minLengthVerifier(zipCode, 'Zip Code', 5, false, true);
